@@ -8,6 +8,13 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Farmer" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="FarmerInput.cs" t="Include" />
+            <e p="FarmerMovement.cs" t="Include" />
+            <e p="FarmerSettings.cs" t="Include" />
+          </e>
+        </e>
         <e p="Plugins" t="Include">
           <e p="fmod" t="Include">
             <e p="addons" t="Include">
