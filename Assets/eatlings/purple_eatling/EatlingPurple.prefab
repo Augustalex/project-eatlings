@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7302624077025840374}
   - component: {fileID: 7302624077025840375}
   - component: {fileID: 5341946595558488934}
+  - component: {fileID: 5653211092070087162}
   m_Layer: 0
   m_Name: CharacterRoot
   m_TagString: Untagged
@@ -109,6 +110,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 215a31dd79ec9ca43976f97f15b202dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5653211092070087162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302624077025840372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfa00172d7326747bb96b27e059e178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7302624077331544985
@@ -290,8 +303,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4863401, y: 0.52944165, z: 0.34258163}
-  m_Center: {x: 0, y: 0.28127018, z: -0}
+  m_Size: {x: 1, y: 0.92020285, z: 1}
+  m_Center: {x: 0, y: 0.5398986, z: -0}
 --- !u!1 &8365464756529433355 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7980316727677748081, guid: a37aa7f79b99d1440959c8d9ed5c7516,
