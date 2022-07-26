@@ -47,7 +47,7 @@ public class FarmerItemSelector : MonoBehaviour
         if (_farmerState.CanHighlightItem() && _itemToHighlight != null)
         {
             var pickupable = _itemToHighlight.GetComponent<Pickupable>();
-            if (pickupable)
+            if (pickupable && pickupable.CanPickUp())
             {
                 _selectedItem = pickupable;
             }

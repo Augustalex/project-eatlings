@@ -19,7 +19,7 @@ public class Highlightable : MonoBehaviour
     public void StopHighlight()
     {
         _highlighted = false;
-        transform.position = _originalPosition;
+        // transform.position = _originalPosition;
     }
 
     // Private
@@ -31,6 +31,8 @@ public class Highlightable : MonoBehaviour
 
     void Update()
     {
+        return;
+        
         if (_highlighted)
         {
             transform.position = _originalPosition + Vector3.up * .5f;
