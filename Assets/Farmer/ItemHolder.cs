@@ -42,14 +42,25 @@ public class ItemHolder : MonoBehaviour
 
     public void Drop()
     {
-        _item.GetComponent<Pickupable>().Dropped();
+        var pickupable = _item.GetComponent<Pickupable>();
+        pickupable.Dropped();
 
         var pivotTransform = pivot.transform;
-        var newPosition = pivotTransform.position + pivotTransform.forward.normalized * 1f + Vector3.up;
+        var newPosition = pivotTransform.position + pivotTransform.forward.normalized * 1.75f + Vector3.up;
         var gridAlignedPosition = FarmGridUtils.GridAlign(newPosition);
-        Debug.Log("DROP POSITION: " + newPosition + ", GRIDPOS: " + gridAlignedPosition);
-        // _item.transform.position = gridAlignedPosition;
-        _item.GetComponent<Rigidbody>().MovePosition(gridAlignedPosition);
+
+        var itemRigidbody = _item.GetComponent<Rigidbody>();
+        itemRigidbody.MovePosition(gridAlignedPosition);
+
+        var eatlingRoot = _item.GetComponent<EatlingBabyGrowth>();
+        if (eatlingRoot)
+        {
+            eatlingRoot.Plant();
+        }
+        else
+        {
+            itemRigidbody.AddForce(Vector3.up * .1f, ForceMode.Impulse);
+        }
 
         DidDropItem?.Invoke();
 
