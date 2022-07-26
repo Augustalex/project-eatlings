@@ -20,7 +20,7 @@ public class EyeAnimator : MonoBehaviour
     private float _openStarted;
     private GameObject[] _eyes;
 
-    private const float PupilSpeed = 9f;
+    private const float PupilSpeed = 8f;
     private const float BlinkSpeed = 22f;
 
     private static readonly Vector3 EyeClosed = new Vector3(1, 0, 1);
@@ -59,7 +59,7 @@ public class EyeAnimator : MonoBehaviour
 
             if (_blinkStarted <= 0)
             {
-                _stayCooldown = Random.Range(.05f, .1f);
+                _stayCooldown = Random.Range(.05f, .2f);
             }
         }
         else if (_stayCooldown > 0)
@@ -130,16 +130,16 @@ public class EyeAnimator : MonoBehaviour
 
     private void MovePupils()
     {
-        _moveCooldown = Random.Range(.8f, 2f);
+        _moveCooldown = Random.Range(.5f, 2.5f);
 
         _moveStart = _pupils[0].transform.localPosition;
-        _moveTo = Random.insideUnitCircle.normalized * .1f;
+        _moveTo = Random.insideUnitCircle.normalized * .024f;
         _moveToProgress = 1f;
     }
 
     public void Blink()
     {
-        _blinkCooldown = Random.Range(2, 4);
+        _blinkCooldown = Random.Range(2, 5);
 
         _blinkStarted = 1f;
     }
