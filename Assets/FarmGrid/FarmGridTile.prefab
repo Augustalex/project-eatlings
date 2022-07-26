@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5787582324872931845
 Transform:
   m_ObjectHideFlags: 0
@@ -173,10 +173,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7336259181521097800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e84ef47bb05af7478a84a2c5c81bf11, type: 3}
+  m_Script: {fileID: 11500000, guid: 3754284209c96c04fbb86b94a383f8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hole: {fileID: 6619384291321999117}
+  plantableHighlight: {fileID: 0}
 --- !u!65 &5067396745716668606
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EatlingBabyGrowth : MonoBehaviour
 {
     // Public
-
     public GameObject teen;
     public float timeUntilTeen = 10;
     public float timeUntilFullyGrown = 30;
@@ -14,9 +10,9 @@ public class EatlingBabyGrowth : MonoBehaviour
     // Private
 
     private bool _planted;
-    private Vector3 _targetPosition;
     private float _growth;
     private bool _fullyGrown;
+    private FarmTile _tile;
 
     private void Awake()
     {
@@ -26,11 +22,6 @@ public class EatlingBabyGrowth : MonoBehaviour
     private void Update()
     {
         if (_fullyGrown) return;
-
-        if (_targetPosition != Vector3.zero)
-        {
-            transform.position = _targetPosition;
-        }
 
         if (_planted)
         {
@@ -47,7 +38,9 @@ public class EatlingBabyGrowth : MonoBehaviour
             {
                 if (_growth > timeUntilFullyGrown)
                 {
-                    GetComponentInParent<EatlingModeController>().SetFullyGrown();
+                    var eatlingModeController = GetComponentInParent<EatlingModeController>();
+                    eatlingModeController.SetFullyGrown();
+                    eatlingModeController.SetFullyGrownPlantedAt(_tile);
                     _fullyGrown = true;
                 }
             }
@@ -60,9 +53,8 @@ public class EatlingBabyGrowth : MonoBehaviour
         var hits = Physics.RaycastAll(ray, 10f);
         foreach (var raycastHit in hits)
         {
-            Debug.Log("HIT: " + raycastHit.collider.gameObject.name);
             var farmTile = raycastHit.collider.GetComponent<FarmTile>();
-            if (farmTile)
+            if (farmTile && farmTile.Vacant())
             {
                 PlantAt(farmTile);
                 return;
@@ -72,6 +64,7 @@ public class EatlingBabyGrowth : MonoBehaviour
 
     private void PlantAt(FarmTile farmTile)
     {
+        _tile = farmTile;
         farmTile.Occupy(gameObject);
 
         var rb = GetComponent<Rigidbody>();
@@ -81,7 +74,7 @@ public class EatlingBabyGrowth : MonoBehaviour
         GetComponent<Pickupable>().Disable();
 
         _planted = true;
-        _targetPosition = farmTile.transform.position + Vector3.up * -0.081f;
+        transform.position = farmTile.transform.position + Vector3.up * -0.081f;
     }
 
     public bool IsPlanted()

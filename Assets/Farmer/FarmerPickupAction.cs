@@ -15,12 +15,10 @@ public class FarmerPickupAction : MonoBehaviour
     {
         if (_itemHolder.HoldingItem())
         {
-            Debug.Log("DROP");
             _itemHolder.Drop();
         }
         else if (_farmerState.CanHoldItem() && _itemSelector.HasSelectedItem())
         {
-            Debug.Log("PICKUP");
             var item = _itemSelector.SelectedItem();
             _itemHolder.Pickup(item);
         }
