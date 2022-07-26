@@ -1,45 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Highlightable : MonoBehaviour
 {
+    // Public
+
+    public GameObject highlighter;
+
     // Private 
 
-    private bool _highlighted;
     private Vector3 _originalPosition;
 
     // Public
 
+    private void Awake()
+    {
+        highlighter.SetActive(
+            false); // Always disable highlighter on first frame, no matter how many highlighters are connected to it.
+    }
+
     public void Highlight()
     {
-        _highlighted = true;
+        highlighter.SetActive(true);
     }
 
     public void StopHighlight()
     {
-        _highlighted = false;
-        // transform.position = _originalPosition;
+        highlighter.SetActive(false);
     }
 
-    // Private
-
-    void Awake()
+    private void Update()
     {
-        _originalPosition = transform.position;
-    }
-
-    void Update()
-    {
-        return;
-        
-        if (_highlighted)
-        {
-            transform.position = _originalPosition + Vector3.up * .5f;
-        }
-        else
-        {
-            _originalPosition = transform.position;
-        }
+        highlighter.transform.position = transform.position;
     }
 }

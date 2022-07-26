@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EatlingBabyGrowth : MonoBehaviour
@@ -14,7 +11,6 @@ public class EatlingBabyGrowth : MonoBehaviour
     // Private
 
     private bool _planted;
-    private Vector3 _targetPosition;
     private float _growth;
     private bool _fullyGrown;
 
@@ -26,11 +22,6 @@ public class EatlingBabyGrowth : MonoBehaviour
     private void Update()
     {
         if (_fullyGrown) return;
-
-        if (_targetPosition != Vector3.zero)
-        {
-            transform.position = _targetPosition;
-        }
 
         if (_planted)
         {
@@ -60,9 +51,8 @@ public class EatlingBabyGrowth : MonoBehaviour
         var hits = Physics.RaycastAll(ray, 10f);
         foreach (var raycastHit in hits)
         {
-            Debug.Log("HIT: " + raycastHit.collider.gameObject.name);
             var farmTile = raycastHit.collider.GetComponent<FarmTile>();
-            if (farmTile)
+            if (farmTile && farmTile.Vacant())
             {
                 PlantAt(farmTile);
                 return;
@@ -81,7 +71,7 @@ public class EatlingBabyGrowth : MonoBehaviour
         GetComponent<Pickupable>().Disable();
 
         _planted = true;
-        _targetPosition = farmTile.transform.position + Vector3.up * -0.081f;
+        transform.position = farmTile.transform.position + Vector3.up * -0.081f;
     }
 
     public bool IsPlanted()
