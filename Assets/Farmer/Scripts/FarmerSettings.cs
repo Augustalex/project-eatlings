@@ -6,5 +6,6 @@ namespace Farmer.Scripts
     public class FarmerSettings : ScriptableObject
     {
         public float baseMovementSpeed = 20f;
+        public float maxSpeed = 10f;
     }
 }
