@@ -27,6 +27,7 @@ public class FarmerMovement : MonoBehaviour
     void Update()
     {
         UpdateMovement();
+        ClampToMaxSpeed();
         InertialDampening();
     }
 
@@ -38,24 +39,44 @@ public class FarmerMovement : MonoBehaviour
         }
     }
 
+    private void ClampToMaxSpeed()
+    {
+        var velocity = _rigidbody.velocity;
+        if (velocity.magnitude > farmerSettings.maxSpeed)
+        {
+            _rigidbody.velocity = velocity.normalized * farmerSettings.maxSpeed;
+        }
+    }
+
     private void UpdateMovement()
     {
         var normalizedMovement = MovementVector();
 
         var finalMovementVector = normalizedMovement * CharacterSpeed();
-        Debug.Log("finalMovementVector: " + finalMovementVector);
-        _rigidbody.velocity = finalMovementVector;
+        // _rigidbody.velocity = finalMovementVector;
+        if (normalizedMovement.magnitude > .25f)
+        {
+            _rigidbody.AddForce(finalMovementVector * .05f, ForceMode.Impulse);
+        }
     }
 
     private Vector3 MovementVector()
     {
         var xyVector = _movement;
-        return new Vector3(RoundMovementValue(xyVector.x), 0f, RoundMovementValue(xyVector.y));
+        var x = RoundMovementValue(xyVector.x);
+        var roundedY = RoundMovementValue(xyVector.y);
+        var z = (roundedY > .1f || roundedY < -.1f) ? roundedY < 0 ? -1f : 1f : 0f;
+        return new Vector3(
+            x,
+            0,
+            x == 0f ? z : 0f
+        );
+        return new Vector3(RoundMovementValue(xyVector.x), 0f, roundedY);
     }
 
     private float RoundMovementValue(float x)
     {
-        var scale = 4f;
+        var scale = 1f;
         return Mathf.Round(x * scale) / scale;
     }
 
