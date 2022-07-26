@@ -74,6 +74,6 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _color_mask_tile: 0.015
+    - _color_mask_tile: 0.02
     m_Colors: []
   m_BuildTextureStacks: []
