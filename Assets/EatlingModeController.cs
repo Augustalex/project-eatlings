@@ -53,4 +53,9 @@ public class EatlingModeController : MonoBehaviour
             baby.transform.position = grown.transform.position;
         }
     }
+
+    public void SetFullyGrownPlantedAt(FarmTile tile)
+    {
+        grown.GetComponent<GrownEatlingPlanted>().SetPlanted(tile);
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -5,6 +6,12 @@ using UnityEngine;
 
 public class Pickupable : MonoBehaviour
 {
+    // Public
+    public event Action WasPickedUp;
+    public event Action WasDropped;
+
+    // Private
+
     private Rigidbody _rigidbody;
     private Collider[] _colliders;
     private bool _disabled;
@@ -28,6 +35,8 @@ public class Pickupable : MonoBehaviour
 
         _rigidbody.isKinematic = true;
         _rigidbody.useGravity = false;
+
+        WasPickedUp?.Invoke();
     }
 
     public void Dropped()
@@ -41,6 +50,8 @@ public class Pickupable : MonoBehaviour
 
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
+
+        WasDropped?.Invoke();
     }
 
     // Private
