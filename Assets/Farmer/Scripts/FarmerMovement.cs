@@ -43,19 +43,25 @@ public class FarmerMovement : MonoBehaviour
         var normalizedMovement = MovementVector();
 
         var finalMovementVector = normalizedMovement * CharacterSpeed();
-        Debug.Log("finalMovementVector: " + finalMovementVector);
         _rigidbody.velocity = finalMovementVector;
     }
 
     private Vector3 MovementVector()
     {
         var xyVector = _movement;
+        var x = RoundMovementValue(xyVector.x);
+        var z = xyVector.y < 0 ? -1f : 1f;
+        return new Vector3(
+            x,
+            0,
+            x == 0f ? z : 0f
+        );
         return new Vector3(RoundMovementValue(xyVector.x), 0f, RoundMovementValue(xyVector.y));
     }
 
     private float RoundMovementValue(float x)
     {
-        var scale = 4f;
+        var scale = 1f;
         return Mathf.Round(x * scale) / scale;
     }
 

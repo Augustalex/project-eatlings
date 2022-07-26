@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +7,7 @@ public class FarmerInput : MonoBehaviour
     private PlayerInput _playerInput;
     private bool _noPlayer = true;
     private FarmerMovement _farmerMovement;
+    private FarmerPickupAction _farmerPickupAction;
 
     void Start()
     {
@@ -21,17 +20,30 @@ public class FarmerInput : MonoBehaviour
     private void ReloadPlayerAssets()
     {
         _farmerMovement = GetComponentInChildren<FarmerMovement>();
+        _farmerPickupAction = GetComponentInChildren<FarmerPickupAction>();
         _noPlayer = false;
     }
 
     private void SetupEvents()
     {
-        SetupAction(_playerInput.currentActionMap["Move"], (c) =>
+        SetupAction(_playerInput.currentActionMap["Move"], OnMove);
+        SetupAction(_playerInput.currentActionMap["Main"], OnMain);
+    }
+
+    public void OnMain(InputAction.CallbackContext c)
+    {
+        if (_noPlayer) return;
+        if (c.performed)
         {
-            if (_noPlayer) return;
-            var rawMovementVector = c.ReadValue<Vector2>();
-            _farmerMovement.SetMovementVector(rawMovementVector);
-        });
+            _farmerPickupAction.PickupItem();
+        }
+    }
+
+    public void OnMove(InputAction.CallbackContext c)
+    {
+        if (_noPlayer) return;
+        var rawMovementVector = c.ReadValue<Vector2>();
+        _farmerMovement.SetMovementVector(rawMovementVector);
     }
 
     public void TearDownEvents()
