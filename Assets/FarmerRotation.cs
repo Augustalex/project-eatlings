@@ -18,7 +18,7 @@ public class FarmerRotation : MonoBehaviour
     void Update()
     {
         var rigidbodyVelocity = _rigidbody.velocity;
-        if (rigidbodyVelocity.magnitude < 2f) return;
+        if (rigidbodyVelocity.magnitude < .25f) return;
         var currentDirection = rigidbodyVelocity.normalized;
         var angles = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
 

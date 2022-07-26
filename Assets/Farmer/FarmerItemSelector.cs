@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(FarmerPivotAccess))]
+[RequireComponent(typeof(FarmerState))]
 public class FarmerItemSelector : MonoBehaviour
 {
     // Private
@@ -9,7 +12,12 @@ public class FarmerItemSelector : MonoBehaviour
     private Pickupable _selectedItem;
     private Highlightable _highlighted;
     private FarmerPivotAccess _farmerPivotAccess;
+    private FarmerState _farmerState;
+
+    // Gizmos
     private Vector3 _gizmoLastHighlightedPosition;
+    private Vector3[] _gizmoHighlighted = new[] {Vector3.zero, Vector3.zero, Vector3.zero};
+    private GameObject _itemToHighlight;
 
     // Public
 
@@ -29,44 +37,57 @@ public class FarmerItemSelector : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _farmerPivotAccess = GetComponent<FarmerPivotAccess>();
+        _farmerState = GetComponent<FarmerState>();
     }
 
     void Update()
     {
-        var highlightedItem = MostLikelyItemAtHighlightPosition();
-        if (highlightedItem)
+        UpdatedItemToBeHighlighted();
+
+        if (_farmerState.CanHighlightItem() && _itemToHighlight != null)
         {
-            var pickupable = highlightedItem.GetComponent<Pickupable>();
+            var pickupable = _itemToHighlight.GetComponent<Pickupable>();
             if (pickupable)
             {
                 _selectedItem = pickupable;
             }
 
-            var highlightable = highlightedItem.GetComponent<Highlightable>();
+            var highlightable = _itemToHighlight.GetComponent<Highlightable>();
             if (highlightable)
             {
+                ResetHighlightedObject();
+
                 _highlighted = highlightable;
                 highlightable.Highlight();
             }
         }
         else
         {
-            if (_highlighted)
-            {
-                _highlighted.StopHighlight();
-            }
+            ResetHighlightedObject();
 
             _highlighted = null;
             _selectedItem = null;
         }
     }
 
+    private void ResetHighlightedObject()
+    {
+        if (_highlighted)
+        {
+            _highlighted.StopHighlight();
+        }
+    }
+
+    private void UpdatedItemToBeHighlighted()
+    {
+        _itemToHighlight = MostLikelyItemAtHighlightPosition();
+    }
+
     private GameObject MostLikelyItemAtHighlightPosition()
     {
-        var hits = Physics.OverlapBox(HighlightPosition(), HighlightHitBoxHalfExtends());
         var closestDistance = Mathf.Infinity;
         GameObject closestObject = null;
-        foreach (var hit in hits)
+        foreach (var hit in HighlightHits())
         {
             var hitAttachedRigidbody = hit.attachedRigidbody;
             if (!hitAttachedRigidbody) continue;
@@ -83,9 +104,17 @@ public class FarmerItemSelector : MonoBehaviour
             }
         }
 
-        Debug.Log("CLOSEST: " + closestObject + ", closest distance: " + closestDistance);
-
         return closestObject;
+    }
+
+    private IEnumerable<Collider> HighlightHits()
+    {
+        var index = 0;
+        return HighlightPositions().SelectMany((h) =>
+        {
+            _gizmoHighlighted[index++] = h;
+            return Physics.OverlapBox(h, HighlightHitBoxHalfExtends());
+        });
     }
 
     private Vector3 HighlightHitBoxHalfExtends()
@@ -108,8 +137,26 @@ public class FarmerItemSelector : MonoBehaviour
         return gridAlignedPosition;
     }
 
+    private Vector3[] HighlightPositions()
+    {
+        var forward = _farmerPivotAccess.pivot.transform.forward;
+        var sideForward = forward * 1.25f;
+        var sideVector = _farmerPivotAccess.pivot.transform.right * .3f;
+        return new[]
+        {
+            FarmGridUtils.GridAlign(_rigidbody.position + forward),
+            FarmGridUtils.GridAlign(_rigidbody.position + sideForward + sideVector),
+            FarmGridUtils.GridAlign(_rigidbody.position + sideForward - sideVector)
+        };
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(_gizmoLastHighlightedPosition, Vector3.one * .3f);
+        foreach (Vector3 pos in _gizmoHighlighted)
+        {
+            Gizmos.DrawCube(pos, HighlightHitBoxHalfExtends() * 2f);
+        }
+
+        // Gizmos.DrawCube(_gizmoLastHighlightedPosition, Vector3.one * .3f);
     }
 }

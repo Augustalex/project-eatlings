@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class ItemHolder : MonoBehaviour
 {
     // Public
     public GameObject pivot;
+
+    public event Action DidHoldItem;
+    public event Action DidDropItem;
 
     // Private
     private GameObject _item;
@@ -17,6 +21,8 @@ public class ItemHolder : MonoBehaviour
         _item = item.gameObject;
 
         item.PickedUp();
+        
+        DidHoldItem?.Invoke();
     }
 
     public bool HoldingItem()

@@ -12,6 +12,7 @@ public class Pickupable : MonoBehaviour
     
     public void PickedUp()
     {
+        Debug.Log("PICKUP ITEM: " + this);
         foreach (var collider1 in _colliders)
         {
             collider1.enabled = false;
