@@ -9,16 +9,16 @@ public class Pickupable : MonoBehaviour
     private Collider[] _colliders;
 
     // Public
-    
+
     public void PickedUp()
     {
-        Debug.Log("PICKUP ITEM: " + this);
         foreach (var collider1 in _colliders)
         {
             collider1.enabled = false;
         }
 
         _rigidbody.isKinematic = true;
+        _rigidbody.useGravity = false;
     }
 
     public void Dropped()
@@ -29,9 +29,11 @@ public class Pickupable : MonoBehaviour
         }
 
         _rigidbody.isKinematic = false;
+        _rigidbody.useGravity = true;
     }
 
     // Private
+
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();

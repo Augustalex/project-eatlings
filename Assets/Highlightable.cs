@@ -19,6 +19,7 @@ public class Highlightable : MonoBehaviour
     public void StopHighlight()
     {
         _highlighted = false;
+        transform.position = _originalPosition;
     }
 
     // Private
@@ -36,7 +37,7 @@ public class Highlightable : MonoBehaviour
         }
         else
         {
-            transform.position = _originalPosition;
+            _originalPosition = transform.position;
         }
     }
 }
