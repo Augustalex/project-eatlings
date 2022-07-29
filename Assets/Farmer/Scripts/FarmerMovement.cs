@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Farmer.Scripts;
@@ -7,10 +8,12 @@ public class FarmerMovement : MonoBehaviour
 {
     // Public
     public FarmerSettings farmerSettings;
+    [SerializeField] private Animator animator;
 
     // Private
     private Vector2 _movement;
     private Rigidbody _rigidbody;
+    private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
 
     // Public methods
     public void SetMovementVector(Vector2 movement)
@@ -88,5 +91,10 @@ public class FarmerMovement : MonoBehaviour
     public void TeleportTo(Vector3 spawnPoint)
     {
         transform.position = spawnPoint;
+    }
+
+    private void LateUpdate()
+    {
+        animator.SetFloat(MovementSpeed ,_rigidbody.velocity.magnitude);
     }
 }
