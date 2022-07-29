@@ -55,4 +55,9 @@ public class EatlingModeController : MonoBehaviour
     {
         grown.GetComponent<GrownEatlingPlanted>().SetPlanted(tile);
     }
+
+    public bool InBabyMode()
+    {
+        return baby.activeSelf;
+    }
 }

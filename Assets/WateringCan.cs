@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WateringCan : MonoBehaviour
@@ -10,37 +7,37 @@ public class WateringCan : MonoBehaviour
     public float maxWater = 100f;
 
     // Private
-    
+
     private float _waterLevel;
 
     // Public
 
-    public void Water(EatlingBabyGrowth babyGrowth)
+    public void Water(GameObject target)
     {
-        babyGrowth.Water(TakeWater());
+        var babyGrowth = target.GetComponentInChildren<EatlingBabyGrowth>();
+        if (!babyGrowth)
+        {
+            Debug.Log("ERROR: No baby growth class on targeted eatling");
+            return;
+        }
+
+        var waterTaken = TakeWater();
+        Debug.Log("WATER TAKEN: " + waterTaken);
+        babyGrowth.Water(waterTaken);
     }
 
+    public void Refill()
+    {
+        Debug.Log("REFILL!");
+        _waterLevel = maxWater;
+    }
+
+    // Private
     private float TakeWater()
     {
         var take = Mathf.Min(_waterLevel, 10f);
         _waterLevel -= take;
 
         return take;
-    }
-
-    // Private
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        var pond = other.GetComponent<Pond>();
-        if (pond)
-        {
-            Refill();
-        }
-    }
-
-    private void Refill()
-    {
-        _waterLevel = maxWater;
     }
 }

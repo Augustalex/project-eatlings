@@ -89,6 +89,8 @@ public class FarmerItemSelector : MonoBehaviour
         GameObject closestObject = null;
         foreach (var hit in HighlightHits())
         {
+            if (hit.CompareTag("Player")) continue;
+
             var hitAttachedRigidbody = hit.attachedRigidbody;
             if (!hitAttachedRigidbody) continue;
 

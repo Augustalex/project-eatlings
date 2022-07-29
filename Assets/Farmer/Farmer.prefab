@@ -179,6 +179,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3028c376-64b8-4f2d-be66-380f5d902a0c
     m_ActionName: Player/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2f69317-fcbf-429c-aa96-11f2f3d9cc3b
+    m_ActionName: Player/Use[/Keyboard/e,/Keyboard/enter,/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -208,7 +212,7 @@ GameObject:
   - component: {fileID: 3666694701908491815}
   m_Layer: 10
   m_Name: CharacterPivot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,9 +433,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1256791699004728628}
   - component: {fileID: 258053462446912040}
+  - component: {fileID: 5541791119422166475}
   m_Layer: 10
   m_Name: ItemRoot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,6 +470,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 1075933080824285146}
+--- !u!135 &5541791119422166475
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451578051382835202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &7623470073874139465
 PrefabInstance:
   m_ObjectHideFlags: 0

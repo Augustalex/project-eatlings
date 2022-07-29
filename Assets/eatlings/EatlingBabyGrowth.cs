@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EatlingBabyGrowth : MonoBehaviour
@@ -6,6 +7,9 @@ public class EatlingBabyGrowth : MonoBehaviour
 
     public GameObject teen;
     public EatlingSettings eatlingSettings;
+
+    public event Action NeedsWater;
+    public event Action GotWater;
 
     // Private
 
@@ -30,7 +34,7 @@ public class EatlingBabyGrowth : MonoBehaviour
         Drink();
         Grow();
         UpdateDryLevel();
-        
+
         EvolveIfPossible();
     }
 
@@ -51,13 +55,17 @@ public class EatlingBabyGrowth : MonoBehaviour
     {
         if (_waterLevel <= 0f)
         {
+            if (_dryLevel == 0f) NeedsWater?.Invoke();
+
             _dryLevel += 1f * Time.deltaTime;
         }
         else
         {
-            _dryLevel = 0;
+            if (_dryLevel != 0f) GotWater?.Invoke();
+
+            _dryLevel = 0f;
         }
-        
+
         if (_dryLevel > eatlingSettings.maxDryTimeBeforeDeath)
         {
             DieFromDrought();

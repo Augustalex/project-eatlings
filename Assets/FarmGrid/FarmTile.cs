@@ -28,4 +28,9 @@ public class FarmTile : MonoBehaviour
         _occupant = null;
         hole.SetActive(false);
     }
+
+    public GameObject GetOccupant()
+    {
+        return _occupant;
+    }
 }

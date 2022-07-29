@@ -2,7 +2,37 @@ fileFormatVersion: 2
 guid: 145e082abe3e19045995ff21f2ec4c3a
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -445483484564741274
+    second: rigAction.001
+  - first:
+      74: 7176209919637214875
+    second: Action
+  - first:
+      74: -3100369314251171874
+    second: Idle
+  - first:
+      74: 2667949614841947897
+    second: Walk
+  - first:
+      74: 3087379780673417309
+    second: control_rig|CTRL_Idle
+  - first:
+      74: 8385999095355420986
+    second: control_rig|CTRL_Walk
+  - first:
+      74: 1504053702996231894
+    second: control_rig|Idle
+  - first:
+      74: -27374320328713669
+    second: control_rig|Walk
+  - first:
+      74: -4431178039026979820
+    second: game_rig|Idle
+  - first:
+      74: 2724941675345231082
+    second: game_rig|Walk
   externalObjects: {}
   materials:
     materialImportMode: 2
