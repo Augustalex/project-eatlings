@@ -31,19 +31,9 @@ public class EatlingBabyGrowth : MonoBehaviour
         return _planted;
     }
 
-    public void Plant()
+    public void Plant(FarmTile tile)
     {
-        var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-        var hits = Physics.RaycastAll(ray, 10f);
-        foreach (var raycastHit in hits)
-        {
-            var farmTile = raycastHit.collider.GetComponent<FarmTile>();
-            if (farmTile && farmTile.Vacant())
-            {
-                PlantAt(farmTile);
-                return;
-            }
-        }
+        PlantAt(tile);
     }
 
     public void Water(float water)
@@ -165,6 +155,7 @@ public class EatlingBabyGrowth : MonoBehaviour
         SetAsPlanted();
 
         transform.position = farmTile.transform.position + Vector3.up * -0.081f;
+        transform.rotation = Quaternion.Euler(0, -180f, 0f);
     }
 
     private void SetAsReadyToPickUp()
