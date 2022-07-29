@@ -10,6 +10,9 @@ public class Pickupable : MonoBehaviour
     public event Action WasPickedUp;
     public event Action WasDropped;
 
+    public bool gridAligned = true;
+    
+
     // Private
 
     private Rigidbody _rigidbody;

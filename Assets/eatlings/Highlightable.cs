@@ -6,6 +6,7 @@ public class Highlightable : MonoBehaviour
     // Public
 
     public GameObject highlighter;
+    public bool updatePosition = true;
 
     // Private 
 
@@ -31,6 +32,9 @@ public class Highlightable : MonoBehaviour
 
     private void Update()
     {
-        highlighter.transform.position = transform.position;
+        if (updatePosition)
+        {
+            highlighter.transform.position = transform.position;
+        }
     }
 }
