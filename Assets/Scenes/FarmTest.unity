@@ -244,17 +244,17 @@ PrefabInstance:
     - target: {fileID: 2348265295241880386, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001569981
+      value: -0.00000001569981
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295241880386, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000007040991
+      value: 0.000000007040991
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295241880413, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7781374
+      value: 2.7142856
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295439009228, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
@@ -316,6 +316,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2348265296155960460, guid: 0fe07045f9089844aaee85dbafdb998c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fe2d02557ec223347a97232929d6594e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe07045f9089844aaee85dbafdb998c, type: 3}
 --- !u!1001 &5977730875039832578
@@ -408,12 +413,12 @@ PrefabInstance:
     - target: {fileID: 5977730876015236789, guid: aa1ff40ee39fecd4fa920e2f211fb3f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001569981
+      value: -0.00000001569981
       objectReference: {fileID: 0}
     - target: {fileID: 5977730876015236789, guid: aa1ff40ee39fecd4fa920e2f211fb3f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000007040991
+      value: 0.000000007040991
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa1ff40ee39fecd4fa920e2f211fb3f7, type: 3}
@@ -424,6 +429,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5763684903378826810, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fe2d02557ec223347a97232929d6594e, type: 2}
     - target: {fileID: 6831452915344204976, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_Follow
@@ -437,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 6831452915344204976, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7781374
+      value: 2.7142856
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
