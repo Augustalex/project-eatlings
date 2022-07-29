@@ -13,6 +13,10 @@ public class ItemHolder : MonoBehaviour
 
     public event Action<ItemActivity> UsedItem;
 
+    public enum ItemGrabMode
+    {
+    }
+    
     public enum ItemActivity
     {
         Watering,
@@ -24,6 +28,7 @@ public class ItemHolder : MonoBehaviour
     private GameObject _itemGO;
     private Pickupable _item;
     private ItemUseTargetSystem _itemTargetSystem;
+    private Transform _itemPreviousParent;
 
     // Public
 
@@ -34,6 +39,11 @@ public class ItemHolder : MonoBehaviour
         _itemTargetSystem = item.GetComponent<ItemUseTargetSystem>();
 
         item.PickedUp();
+
+        _itemPreviousParent = _itemGO.transform.parent;
+        _itemGO.transform.SetParent(pivot.transform);
+        _itemGO.transform.position = pivot.transform.position;
+        _itemGO.transform.rotation = Quaternion.Euler(0f, -pivot.transform.rotation.eulerAngles.y, 0f);
 
         DidHoldItem?.Invoke();
     }
@@ -51,12 +61,14 @@ public class ItemHolder : MonoBehaviour
         {
             if (_item.gridAligned)
             {
-                _itemGO.transform.position = NearestApplicablePosition();
+                // Todo: Replace with item target system
+                // _itemGO.transform.position = NearestApplicablePosition();
             }
             else
             {
-                _itemGO.transform.position = pivot.transform.position;
-                _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
+                // TODO: Verify new parent system then remove this code
+                // _itemGO.transform.position = pivot.transform.position;
+                // _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
             }
 
             if (_itemTargetSystem != null)
@@ -68,6 +80,8 @@ public class ItemHolder : MonoBehaviour
 
     public void Drop()
     {
+        _itemGO.transform.SetParent(_itemPreviousParent);
+
         var pickupable = _itemGO.GetComponent<Pickupable>();
         pickupable.Dropped();
 
@@ -92,6 +106,7 @@ public class ItemHolder : MonoBehaviour
 
         _itemGO = null;
         _item = null;
+        _itemPreviousParent = null;
 
         if (_itemTargetSystem) _itemTargetSystem.NullTarget();
         _itemTargetSystem = null;
