@@ -22,6 +22,7 @@ public class FarmerRotation : MonoBehaviour
         var currentDirection = rigidbodyVelocity.normalized;
         var angles = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
 
-        _farmerPivotAccess.pivot.transform.rotation = Quaternion.AngleAxis(angles, Vector3.up);
+        _farmerPivotAccess.pivot.transform.rotation = Quaternion.Lerp(_farmerPivotAccess.pivot.transform.rotation,
+            Quaternion.AngleAxis(angles, Vector3.up), .1f);
     }
 }

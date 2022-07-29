@@ -30,6 +30,7 @@ public class FarmerInput : MonoBehaviour
         SetupAction(_playerInput.currentActionMap["Move"], OnMove);
         SetupAction(_playerInput.currentActionMap["Main"], OnMain);
         SetupAction(_playerInput.currentActionMap["Use"], OnUse);
+        SetupAction(_playerInput.currentActionMap["Run"], OnRun);
     }
 
     public void ToggleMenu(InputAction.CallbackContext c)
@@ -63,6 +64,19 @@ public class FarmerInput : MonoBehaviour
         if (c.performed)
         {
             _farmerPickupAction.UseItem();
+        }
+    }
+
+    public void OnRun(InputAction.CallbackContext c)
+    {
+        if (_noPlayer) return;
+        if (c.performed)
+        {
+            _farmerMovement.SetForceRun(true);
+        }
+        else if (c.canceled)
+        {
+            _farmerMovement.SetForceRun(false);
         }
     }
 

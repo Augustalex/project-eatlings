@@ -9,12 +9,13 @@ public class FarmerMovement : MonoBehaviour
     // Public
     public FarmerSettings farmerSettings;
     [SerializeField] private Animator animator;
-    
+
 
     // Private
     private Vector2 _movement;
     private Rigidbody _rigidbody;
     private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
+    private bool _forceRun;
 
     // Public methods
     public void SetMovementVector(Vector2 movement)
@@ -46,9 +47,9 @@ public class FarmerMovement : MonoBehaviour
     private void ClampToMaxSpeed()
     {
         var velocity = _rigidbody.velocity;
-        if (velocity.magnitude > farmerSettings.maxSpeed)
+        if (velocity.magnitude > MaxSpeed())
         {
-            _rigidbody.velocity = velocity.normalized * farmerSettings.maxSpeed;
+            _rigidbody.velocity = velocity.normalized * MaxSpeed();
         }
     }
 
@@ -57,36 +58,64 @@ public class FarmerMovement : MonoBehaviour
         var normalizedMovement = MovementVector();
 
         var finalMovementVector = normalizedMovement * CharacterSpeed();
-        // _rigidbody.velocity = finalMovementVector;
-        if (normalizedMovement.magnitude > .25f)
+
+        if (normalizedMovement.magnitude > .05f)
         {
-            _rigidbody.AddForce(finalMovementVector * .05f, ForceMode.Impulse);
+            var direction = finalMovementVector.normalized;
+            var speed = finalMovementVector.magnitude;
+            var forceLeftToMax = Mathf.Max(0f, MaxSpeed() - _rigidbody.velocity.magnitude);
+            var finalForceToAdd = Mathf.Min(speed, forceLeftToMax);
+            var finalResult = direction * finalForceToAdd;
+            _rigidbody.AddForce(finalResult, ForceMode.Impulse);
         }
+    }
+
+    public float MaxSpeed()
+    {
+        return Running() ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed;
+    }
+
+    public bool Running()
+    {
+        Debug.Log("RUNNING?: " + _movement.magnitude);
+        return _movement.magnitude > .8f || _forceRun;
+    }
+
+    public void SetForceRun(bool on)
+    {
+        _forceRun = on;
     }
 
     private Vector3 MovementVector()
     {
-        var xyVector = _movement;
-        var x = RoundMovementValue(xyVector.x);
-        var roundedY = RoundMovementValue(xyVector.y);
-        var z = (roundedY > .1f || roundedY < -.1f) ? roundedY < 0 ? -1f : 1f : 0f;
         return new Vector3(
-            x,
-            0,
-            x == 0f ? z : 0f
-        );
-        return new Vector3(RoundMovementValue(xyVector.x), 0f, roundedY);
+            _movement.x,
+            0f,
+            _movement.y);
+
+        var xyVector = _movement;
+        // var x = RoundMovementValue(xyVector.x);
+        // var roundedY = RoundMovementValue(xyVector.y);
+        // var z = (roundedY > .1f || roundedY < -.1f) ? roundedY < 0 ? -1f : 1f : 0f;
+        // return new Vector3(
+        //     x,
+        //     0,
+        //     x == 0f ? z : 0f
+        // );
+        // return new Vector3(RoundMovementValue(xyVector.x), 0f, roundedY);
     }
 
     private float RoundMovementValue(float x)
     {
-        var scale = 1f;
-        return Mathf.Round(x * scale) / scale;
+        return x;
+
+        // var scale = 8f;
+        // return Mathf.Round(x * scale) / scale;
     }
 
     private float CharacterSpeed()
     {
-        return farmerSettings.baseMovementSpeed;
+        return farmerSettings.baseMovementSpeed * _movement.magnitude;
     }
 
     public void TeleportTo(Vector3 spawnPoint)
@@ -96,7 +125,6 @@ public class FarmerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        Debug.Log(_rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
-        animator.SetFloat(MovementSpeed ,_rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
+        animator.SetFloat(MovementSpeed, _rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
     }
 }
