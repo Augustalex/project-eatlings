@@ -70,6 +70,11 @@ public class Pickupable : MonoBehaviour
         _disabled = true;
     }
 
+    public void Enable()
+    {
+        _disabled = false;
+    }
+
     public bool IsPickedUp()
     {
         return _pickedUp;

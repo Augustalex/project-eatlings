@@ -34,17 +34,16 @@ public class EatlingUIController : MonoBehaviour
     {
         baby.NeedsWater += ShowNeedWater;
         baby.GotWater += HideNeedWater;
+        baby.Died += HideNeedWater;
     }
 
     private void HideNeedWater()
     {
-        Debug.Log("NEED WATER");
         needWater.SetActive(false);
     }
 
     private void ShowNeedWater()
     {
-        Debug.Log("SHOW WATER");
         needWater.SetActive(true);
     }
 }

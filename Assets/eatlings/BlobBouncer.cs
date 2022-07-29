@@ -35,9 +35,18 @@ public class BlobBouncer : MonoBehaviour
         _originalScale = transform.localScale;
     }
 
+    public bool CanBounce()
+    {
+        if (_pickupable.IsPickedUp()) return false;
+        if (_eatlingBabyGrowth.IsPlanted()) return false;
+        if (_eatlingBabyGrowth.IsDead()) return false;
+
+        return true;
+    }
+
     void Update()
     {
-        if (_pickupable.IsPickedUp() || _eatlingBabyGrowth.IsPlanted())
+        if (!CanBounce())
         {
             if (_bouncing)
             {

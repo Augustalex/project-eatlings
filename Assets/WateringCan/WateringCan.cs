@@ -22,13 +22,11 @@ public class WateringCan : MonoBehaviour
         }
 
         var waterTaken = TakeWater();
-        Debug.Log("WATER TAKEN: " + waterTaken);
         babyGrowth.Water(waterTaken);
     }
 
     public void Refill()
     {
-        Debug.Log("REFILL!");
         _waterLevel = maxWater;
     }
 

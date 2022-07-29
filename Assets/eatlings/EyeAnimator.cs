@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EyeAnimator : MonoBehaviour
 {
+    // Public
+
     public GameObject leftEye;
     public GameObject leftPupil;
     public GameObject rightEye;
     public GameObject rightPupil;
+
+    public GameObject leftDeadEye;
+    public GameObject rightDeadEye;
+
+    // Private
 
     private float _blinkCooldown;
     private float _blinkStarted;
@@ -25,6 +31,43 @@ public class EyeAnimator : MonoBehaviour
 
     private static readonly Vector3 EyeClosed = new Vector3(1, 0, 1);
     private static readonly Vector3 EyeOpen = new Vector3(1, 1, 1);
+    private bool _dead;
+
+    // Public
+
+    public void SetDead()
+    {
+        _dead = true;
+
+        leftDeadEye.SetActive(true);
+        rightDeadEye.SetActive(true);
+
+        leftPupil.SetActive(false);
+        rightPupil.SetActive(false);
+
+        RestoreBlink();
+    }
+
+    public void Blink()
+    {
+        _blinkCooldown = Random.Range(2, 5);
+
+        _blinkStarted = 1f;
+    }
+
+    // Private
+
+    private void Awake()
+    {
+        if (leftDeadEye) leftDeadEye.SetActive(false);
+        if (rightDeadEye) rightDeadEye.SetActive(false);
+
+        var babyGrowth = GetComponent<EatlingBabyGrowth>();
+        if (babyGrowth)
+        {
+            babyGrowth.Died += SetDead;
+        }
+    }
 
     void Start()
     {
@@ -40,6 +83,8 @@ public class EyeAnimator : MonoBehaviour
 
     void Update()
     {
+        if (_dead) return;
+
         if (_blinkStarted > 0)
         {
             var progress = 1f - _blinkStarted;
@@ -99,6 +144,14 @@ public class EyeAnimator : MonoBehaviour
         }
     }
 
+    private void RestoreBlink()
+    {
+        foreach (var eye in _eyes)
+        {
+            eye.transform.localScale = EyeOpen;
+        }
+    }
+
     private void UpdatePupils()
     {
         if (_moveToProgress > 0)
@@ -135,12 +188,5 @@ public class EyeAnimator : MonoBehaviour
         _moveStart = _pupils[0].transform.localPosition;
         _moveTo = Random.insideUnitCircle.normalized * .024f;
         _moveToProgress = 1f;
-    }
-
-    public void Blink()
-    {
-        _blinkCooldown = Random.Range(2, 5);
-
-        _blinkStarted = 1f;
     }
 }

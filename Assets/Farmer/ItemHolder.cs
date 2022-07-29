@@ -164,8 +164,6 @@ public class ItemHolder : MonoBehaviour
 
     public void Use()
     {
-        Debug.Log("USE!");
-        
         // TODO: Can we use some interface or something here to make this more Polymorphic? :) Or maybe simple is better?
         var waterCan = _itemGO.GetComponent<WateringCan>();
         if (waterCan)

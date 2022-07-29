@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemUseTargetSystem : MonoBehaviour
@@ -11,10 +9,16 @@ public class ItemUseTargetSystem : MonoBehaviour
 
     public enum TargetType
     {
-        PlantedTile
+        HealthyPlantedEatlings
+    }
+
+    public enum SortType
+    {
+        WaterNeed
     }
 
     public TargetType[] targetTypes = new TargetType[] { };
+    public SortType sortType = SortType.WaterNeed;
 
     // Private 
     private GameObject _currentTarget;
@@ -46,7 +50,7 @@ public class ItemUseTargetSystem : MonoBehaviour
         targetHighlight.SetActive(false);
         _currentTarget = null;
     }
-    
+
     // Private
 
     private void Awake()
@@ -57,29 +61,50 @@ public class ItemUseTargetSystem : MonoBehaviour
     private GameObject FindNextTarget()
     {
         var hits = Physics.OverlapSphere(transform.position, 2f);
+        if (hits.Length == 0) return null;
 
-        foreach (var hit in hits)
-        {
-            foreach (var targetType in targetTypes)
+        return hits
+            .Select(CheckTargetTypes)
+            .Where(h => h != null)
+            .OrderBy(hit =>
             {
-                if (targetType == TargetType.PlantedTile)
+                if (sortType == SortType.WaterNeed)
                 {
-                    var target = CheckHitForPlantedTile(hit);
-                    if (target) return target;
+                    return hit.GetComponent<EatlingBabyGrowth>().WaterLevel();
                 }
+                else
+                {
+                    return 0f;
+                }
+            })
+            .FirstOrDefault();
+    }
+
+    private GameObject CheckTargetTypes(Collider hit)
+    {
+        foreach (var targetType in targetTypes)
+        {
+            if (targetType == TargetType.HealthyPlantedEatlings)
+            {
+                var target = CheckHitForHealthyPlantedEatling(hit);
+                if (target) return target;
             }
         }
 
         return null;
     }
 
-    private GameObject CheckHitForPlantedTile(Collider hit)
+    private GameObject CheckHitForHealthyPlantedEatling(Collider hit)
     {
         var tile = hit.GetComponent<FarmTile>();
         if (tile == null) return null;
         if (tile.Vacant()) return null;
 
-        return tile.GetOccupant();
-    }
+        var occupant = tile.GetOccupant();
+        var babyGrowth = occupant.GetComponent<EatlingBabyGrowth>();
+        if (!babyGrowth) return null;
+        if (babyGrowth.IsDead()) return null;
 
+        return occupant;
+    }
 }
