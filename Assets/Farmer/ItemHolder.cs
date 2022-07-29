@@ -7,18 +7,21 @@ public class ItemHolder : MonoBehaviour
 {
     // Public
     public GameObject pivot;
+    public GameObject rotationPivot;
 
     public event Action DidHoldItem;
     public event Action DidDropItem;
 
     // Private
-    private GameObject _item;
+    private GameObject _itemGO;
+    private Pickupable _item;
 
     // Public
 
     public void Pickup(Pickupable item)
     {
-        _item = item.gameObject;
+        _itemGO = item.gameObject;
+        _item = item;
 
         item.PickedUp();
 
@@ -27,7 +30,7 @@ public class ItemHolder : MonoBehaviour
 
     public bool HoldingItem()
     {
-        return _item != null;
+        return _itemGO != null;
     }
 
     // Private
@@ -36,20 +39,29 @@ public class ItemHolder : MonoBehaviour
     {
         if (HoldingItem())
         {
-            _item.transform.position = NearestApplicablePosition();
+            if (_item.gridAligned)
+            {
+                _itemGO.transform.position = NearestApplicablePosition();
+            }
+            else
+            {
+                _itemGO.transform.position = pivot.transform.position;
+                Debug.Log(pivot.transform.rotation.eulerAngles);
+                _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
+            }
         }
     }
 
     public void Drop()
     {
-        var pickupable = _item.GetComponent<Pickupable>();
+        var pickupable = _itemGO.GetComponent<Pickupable>();
         pickupable.Dropped();
 
         var newPosition = NearestApplicablePosition();
 
-        var itemRigidbody = _item.GetComponent<Rigidbody>();
+        var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
 
-        var eatlingRoot = _item.GetComponent<EatlingBabyGrowth>();
+        var eatlingRoot = _itemGO.GetComponent<EatlingBabyGrowth>();
         if (eatlingRoot)
         {
             Destroy(itemRigidbody);
@@ -64,7 +76,7 @@ public class ItemHolder : MonoBehaviour
 
         DidDropItem?.Invoke();
 
-        _item = null;
+        _itemGO = null;
     }
 
     private Vector3 NearestApplicablePosition()
