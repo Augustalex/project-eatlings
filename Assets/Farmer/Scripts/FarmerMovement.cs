@@ -129,8 +129,6 @@ public class FarmerMovement : MonoBehaviour
         var velocity = _rigidbody.velocity;
         var movementSpeedValue = velocity.magnitude / (isRunning ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed) * (isRunning ? farmerSettings.runSpeedMultiplier : farmerSettings.walkSpeedMultiplier);
         var movementTypeValue = velocity.magnitude / farmerSettings.maxRunSpeed;
-        Debug.Log("movementSpeedValue:" + movementSpeedValue);
-        Debug.Log("movementTypeValue:" + movementTypeValue);
         animator.SetFloat(MovementSpeed, movementSpeedValue);
         animator.SetFloat(MovementType, movementTypeValue);
     }
