@@ -83,6 +83,8 @@ public class ItemHolder : MonoBehaviour
 
         _itemGO = null;
         _item = null;
+
+        if (_itemTargetSystem) _itemTargetSystem.NullTarget();
         _itemTargetSystem = null;
     }
 
@@ -168,11 +170,9 @@ public class ItemHolder : MonoBehaviour
         var waterCan = _itemGO.GetComponent<WateringCan>();
         if (waterCan)
         {
-            Debug.Log("HAS WATER CAN");
             var target = _itemTargetSystem.GetCurrentTarget();
             if (target)
             {
-                Debug.Log("GOT TARGET");
                 waterCan.Water(target);
             }
         }

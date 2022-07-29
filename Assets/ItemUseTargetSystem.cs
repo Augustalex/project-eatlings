@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,18 @@ public class ItemUseTargetSystem : MonoBehaviour
         }
     }
 
+    public void NullTarget()
+    {
+        targetHighlight.SetActive(false);
+        _currentTarget = null;
+    }
+    
     // Private
+
+    private void Awake()
+    {
+        targetHighlight.SetActive(false);
+    }
 
     private GameObject FindNextTarget()
     {
@@ -69,4 +81,5 @@ public class ItemUseTargetSystem : MonoBehaviour
 
         return tile.GetOccupant();
     }
+
 }
