@@ -183,6 +183,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f2f69317-fcbf-429c-aa96-11f2f3d9cc3b
     m_ActionName: Player/Use[/Keyboard/e,/Keyboard/enter,/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ab838b2-c1a7-4b7c-a187-9d0ee92c9c71
+    m_ActionName: Player/Run[/Keyboard/leftShift,/Keyboard/rightShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -265,6 +269,7 @@ GameObject:
   - component: {fileID: 2297085309699939066}
   - component: {fileID: 7964523034743552602}
   - component: {fileID: 4866811748835528891}
+  - component: {fileID: 1961976893385896955}
   m_Layer: 10
   m_Name: CharacterRoot
   m_TagString: Untagged
@@ -392,6 +397,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40df917e9d5e0714582795a3bf8692e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1961976893385896955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6449418363786078758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad129ca043b77845be40433c4ec9112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4979047302383970321}
+  itemHolder: {fileID: 258053462446912040}
 --- !u!1 &6449418364479499246
 GameObject:
   m_ObjectHideFlags: 0
