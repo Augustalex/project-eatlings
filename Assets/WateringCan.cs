@@ -1,19 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WateringCan : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Public
+
+    public float maxWater = 100f;
+
+    // Private
+
+    private float _waterLevel;
+
+    // Public
+
+    public void Water(GameObject target)
     {
-        
+        var babyGrowth = target.GetComponentInChildren<EatlingBabyGrowth>();
+        if (!babyGrowth)
+        {
+            Debug.Log("ERROR: No baby growth class on targeted eatling");
+            return;
+        }
+
+        var waterTaken = TakeWater();
+        Debug.Log("WATER TAKEN: " + waterTaken);
+        babyGrowth.Water(waterTaken);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Refill()
     {
-        
+        Debug.Log("REFILL!");
+        _waterLevel = maxWater;
+    }
+
+    // Private
+    private float TakeWater()
+    {
+        var take = Mathf.Min(_waterLevel, 10f);
+        _waterLevel -= take;
+
+        return take;
     }
 }

@@ -12,13 +12,17 @@ public class ItemHolder : MonoBehaviour
     public event Action DidDropItem;
 
     // Private
-    private GameObject _item;
+    private GameObject _itemGO;
+    private Pickupable _item;
+    private ItemUseTargetSystem _itemTargetSystem;
 
     // Public
 
     public void Pickup(Pickupable item)
     {
-        _item = item.gameObject;
+        _itemGO = item.gameObject;
+        _item = item;
+        _itemTargetSystem = item.GetComponent<ItemUseTargetSystem>();
 
         item.PickedUp();
 
@@ -27,7 +31,7 @@ public class ItemHolder : MonoBehaviour
 
     public bool HoldingItem()
     {
-        return _item != null;
+        return _itemGO != null;
     }
 
     // Private
@@ -36,20 +40,33 @@ public class ItemHolder : MonoBehaviour
     {
         if (HoldingItem())
         {
-            _item.transform.position = NearestApplicablePosition();
+            if (_item.gridAligned)
+            {
+                _itemGO.transform.position = NearestApplicablePosition();
+            }
+            else
+            {
+                _itemGO.transform.position = pivot.transform.position;
+                _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
+            }
+
+            if (_itemTargetSystem != null)
+            {
+                _itemTargetSystem.TargetNext();
+            }
         }
     }
 
     public void Drop()
     {
-        var pickupable = _item.GetComponent<Pickupable>();
+        var pickupable = _itemGO.GetComponent<Pickupable>();
         pickupable.Dropped();
 
         var newPosition = NearestApplicablePosition();
 
-        var itemRigidbody = _item.GetComponent<Rigidbody>();
+        var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
 
-        var eatlingRoot = _item.GetComponent<EatlingBabyGrowth>();
+        var eatlingRoot = _itemGO.GetComponent<EatlingBabyGrowth>();
         if (eatlingRoot)
         {
             Destroy(itemRigidbody);
@@ -64,7 +81,9 @@ public class ItemHolder : MonoBehaviour
 
         DidDropItem?.Invoke();
 
+        _itemGO = null;
         _item = null;
+        _itemTargetSystem = null;
     }
 
     private Vector3 NearestApplicablePosition()
@@ -78,12 +97,10 @@ public class ItemHolder : MonoBehaviour
                 pivot.transform.position.y,
                 position.z
             );
-            Debug.Log("TILE POINT: " + pivotLevelPosition);
             return pivotLevelPosition;
         }
         else
         {
-            Debug.Log("PIVOT POINT: " + pivot.transform.position);
             return pivot.transform.position;
         }
     }
@@ -94,6 +111,8 @@ public class ItemHolder : MonoBehaviour
         GameObject closestObject = null;
         foreach (var hit in HighlightHits())
         {
+            if (hit.CompareTag("Player")) continue;
+            
             var tile = hit.gameObject.GetComponentInParent<FarmTile>();
             if (tile)
             {
@@ -139,5 +158,32 @@ public class ItemHolder : MonoBehaviour
             FarmGridUtils.GridAlign(transformPosition + sideForward + sideVector),
             FarmGridUtils.GridAlign(transformPosition + sideForward - sideVector)
         };
+    }
+
+    public void Use()
+    {
+        Debug.Log("USE!");
+        
+        // TODO: Can we use some interface or something here to make this more Polymorphic? :) Or maybe simple is better?
+        var waterCan = _itemGO.GetComponent<WateringCan>();
+        if (waterCan)
+        {
+            Debug.Log("HAS WATER CAN");
+            var target = _itemTargetSystem.GetCurrentTarget();
+            if (target)
+            {
+                Debug.Log("GOT TARGET");
+                waterCan.Water(target);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var pond = other.GetComponent<Pond>();
+        if (pond)
+        {
+            pond.TryApplyItem(_itemGO);
+        }
     }
 }

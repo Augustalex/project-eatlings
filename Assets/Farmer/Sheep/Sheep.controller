@@ -17,14 +17,14 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2667949614841947897, guid: 145e082abe3e19045995ff21f2ec4c3a,
+  m_Motion: {fileID: 2724941675345231082, guid: 145e082abe3e19045995ff21f2ec4c3a,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: MovementSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -37,7 +37,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 4
-    m_ConditionEvent: Movement Speed
+    m_ConditionEvent: MovementSpeed
     m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2776736875617045845}
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3100369314251171874, guid: 145e082abe3e19045995ff21f2ec4c3a,
+  m_Motion: {fileID: -4431178039026979820, guid: 145e082abe3e19045995ff21f2ec4c3a,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -90,7 +90,7 @@ AnimatorController:
   m_Name: Sheep
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Movement Speed
+  - m_Name: MovementSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -118,7 +118,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: Movement Speed
+    m_ConditionEvent: MovementSpeed
     m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5292289172698628114}

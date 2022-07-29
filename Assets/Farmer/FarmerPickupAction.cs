@@ -24,6 +24,14 @@ public class FarmerPickupAction : MonoBehaviour
         }
     }
 
+    public void UseItem()
+    {
+        if (_itemHolder.HoldingItem())
+        {
+            _itemHolder.Use();
+        }
+    }
+
     // Private
     void Awake()
     {

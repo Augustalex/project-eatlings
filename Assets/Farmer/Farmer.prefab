@@ -179,6 +179,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3028c376-64b8-4f2d-be66-380f5d902a0c
     m_ActionName: Player/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2f69317-fcbf-429c-aa96-11f2f3d9cc3b
+    m_ActionName: Player/Use[/Keyboard/e,/Keyboard/enter,/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -208,7 +212,7 @@ GameObject:
   - component: {fileID: 3666694701908491815}
   m_Layer: 10
   m_Name: CharacterPivot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +230,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1256791699004728628}
-  - {fileID: 6894212173367831827}
+  - {fileID: 7946241836092993186}
   m_Father: {fileID: 6449418364479499245}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -313,7 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   farmerSettings: {fileID: 11400000, guid: 7c8049e79686eba4991b23d883d562a4, type: 2}
-  animator: {fileID: 118631748100565217}
+  animator: {fileID: 4979047302383970321}
 --- !u!114 &8527861307202145252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,9 +434,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1256791699004728628}
   - component: {fileID: 258053462446912040}
+  - component: {fileID: 5541791119422166475}
   m_Layer: 10
   m_Name: ItemRoot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,7 +471,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 1075933080824285146}
---- !u!1001 &6352204183621208824
+--- !u!135 &5541791119422166475
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451578051382835202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!1001 &7623470073874139465
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -540,20 +558,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 145e082abe3e19045995ff21f2ec4c3a, type: 3}
---- !u!1 &6117851872846100393 stripped
+--- !u!1 &7281591027622474776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 145e082abe3e19045995ff21f2ec4c3a,
     type: 3}
-  m_PrefabInstance: {fileID: 6352204183621208824}
+  m_PrefabInstance: {fileID: 7623470073874139465}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &118631748100565217
+--- !u!95 &4979047302383970321
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6117851872846100393}
+  m_GameObject: {fileID: 7281591027622474776}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f93aadb39893f8e4298fb747bc3524be, type: 2}
@@ -566,9 +584,9 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!4 &6894212173367831827 stripped
+--- !u!4 &7946241836092993186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 145e082abe3e19045995ff21f2ec4c3a,
     type: 3}
-  m_PrefabInstance: {fileID: 6352204183621208824}
+  m_PrefabInstance: {fileID: 7623470073874139465}
   m_PrefabAsset: {fileID: 0}

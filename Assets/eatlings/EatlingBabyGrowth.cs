@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 
 public class EatlingBabyGrowth : MonoBehaviour
 {
     // Public
-    
+
     public GameObject teen;
-    public float timeUntilTeen = 10;
-    public float timeUntilFullyGrown = 30;
+    public EatlingSettings eatlingSettings;
+
+    public event Action NeedsWater;
+    public event Action GotWater;
 
     // Private
 
@@ -17,7 +20,7 @@ public class EatlingBabyGrowth : MonoBehaviour
 
     private float _waterLevel;
     private float _dryLevel;
-    
+
     private void Awake()
     {
         teen.SetActive(false);
@@ -26,27 +29,72 @@ public class EatlingBabyGrowth : MonoBehaviour
     private void Update()
     {
         if (_fullyGrown) return;
+        if (!_planted) return;
 
-        if (_planted)
+        Drink();
+        Grow();
+        UpdateDryLevel();
+
+        EvolveIfPossible();
+    }
+
+    private void Drink()
+    {
+        _waterLevel = Mathf.Max(0f, _waterLevel -= eatlingSettings.waterConsumptionPerSecond * Time.deltaTime);
+    }
+
+    private void Grow()
+    {
+        if (_waterLevel > 0f)
         {
             _growth += Time.deltaTime;
+        }
+    }
 
-            if (!teen.activeSelf)
+    private void UpdateDryLevel()
+    {
+        if (_waterLevel <= 0f)
+        {
+            if (_dryLevel == 0f) NeedsWater?.Invoke();
+
+            _dryLevel += 1f * Time.deltaTime;
+        }
+        else
+        {
+            if (_dryLevel != 0f) GotWater?.Invoke();
+
+            _dryLevel = 0f;
+        }
+
+        if (_dryLevel > eatlingSettings.maxDryTimeBeforeDeath)
+        {
+            DieFromDrought();
+        }
+    }
+
+    private void DieFromDrought()
+    {
+        Debug.Log("EATLING DIED FROM DROUGHT");
+        Destroy(gameObject.transform.parent.gameObject);
+    }
+
+    private void EvolveIfPossible()
+    {
+        if (!teen.activeSelf)
+        {
+            if (_growth > eatlingSettings.timeUntilTeen)
             {
-                if (_growth > timeUntilTeen)
-                {
-                    teen.SetActive(true);
-                }
+                teen.SetActive(true);
             }
-            else if (!_fullyGrown)
+        }
+        else if (!_fullyGrown)
+        {
+            if (_growth > eatlingSettings.timeUntilFullyGrown)
             {
-                if (_growth > timeUntilFullyGrown)
-                {
-                    var eatlingModeController = GetComponentInParent<EatlingModeController>();
-                    eatlingModeController.SetFullyGrown();
-                    eatlingModeController.SetFullyGrownPlantedAt(_tile);
-                    _fullyGrown = true;
-                }
+                var eatlingModeController = GetComponentInParent<EatlingModeController>();
+                eatlingModeController.SetFullyGrown();
+                eatlingModeController.SetFullyGrownPlantedAt(_tile);
+                _fullyGrown = true;
             }
         }
     }
@@ -84,5 +132,10 @@ public class EatlingBabyGrowth : MonoBehaviour
     public bool IsPlanted()
     {
         return _planted;
+    }
+
+    public void Water(float water)
+    {
+        _waterLevel = Mathf.Min(eatlingSettings.maxWater, _waterLevel + water);
     }
 }

@@ -29,6 +29,7 @@ public class FarmerInput : MonoBehaviour
         SetupAction(_playerInput.currentActionMap["Menu"], ToggleMenu);
         SetupAction(_playerInput.currentActionMap["Move"], OnMove);
         SetupAction(_playerInput.currentActionMap["Main"], OnMain);
+        SetupAction(_playerInput.currentActionMap["Use"], OnUse);
     }
 
     public void ToggleMenu(InputAction.CallbackContext c)
@@ -54,6 +55,15 @@ public class FarmerInput : MonoBehaviour
         if (_noPlayer) return;
         var rawMovementVector = c.ReadValue<Vector2>();
         _farmerMovement.SetMovementVector(rawMovementVector);
+    }
+
+    public void OnUse(InputAction.CallbackContext c)
+    {
+        if (_noPlayer) return;
+        if (c.performed)
+        {
+            _farmerPickupAction.UseItem();
+        }
     }
 
     public void TearDownEvents()
