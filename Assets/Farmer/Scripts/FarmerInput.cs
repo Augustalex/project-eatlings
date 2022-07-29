@@ -26,8 +26,18 @@ public class FarmerInput : MonoBehaviour
 
     private void SetupEvents()
     {
+        SetupAction(_playerInput.currentActionMap["Menu"], ToggleMenu);
         SetupAction(_playerInput.currentActionMap["Move"], OnMove);
         SetupAction(_playerInput.currentActionMap["Main"], OnMain);
+    }
+
+    public void ToggleMenu(InputAction.CallbackContext c)
+    {
+        if (_noPlayer) return;
+        if (c.performed)
+        {
+            MenuManager.Get().ToggleMenu();
+        }
     }
 
     public void OnMain(InputAction.CallbackContext c)

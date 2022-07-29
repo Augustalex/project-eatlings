@@ -84,4 +84,9 @@ public class FarmerMovement : MonoBehaviour
     {
         return farmerSettings.baseMovementSpeed;
     }
+
+    public void TeleportTo(Vector3 spawnPoint)
+    {
+        transform.position = spawnPoint;
+    }
 }
