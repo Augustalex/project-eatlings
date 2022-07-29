@@ -9,6 +9,7 @@ public class FarmerMovement : MonoBehaviour
     // Public
     public FarmerSettings farmerSettings;
     [SerializeField] private Animator animator;
+    
 
     // Private
     private Vector2 _movement;
@@ -95,6 +96,7 @@ public class FarmerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetFloat(MovementSpeed ,_rigidbody.velocity.magnitude);
+        Debug.Log(_rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
+        animator.SetFloat(MovementSpeed ,_rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
     }
 }
