@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BlobBouncer : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class BlobBouncer : MonoBehaviour
     private readonly float[] _squishSequenceLengths = new[] {.2f, .15f, .1f, .05f, .02f, .01f};
     private Vector3 _originalScale;
     private Rigidbody _rigidbody;
+    private float _stopUntil;
 
     // Private
 
@@ -59,6 +61,15 @@ public class BlobBouncer : MonoBehaviour
         transform.position = newPosition;
 
         HandleSquishing();
+
+        if (Time.time < _stopUntil)
+        {
+            _rigidbody.drag = 100f;
+        }
+        else
+        {
+            _rigidbody.drag = .25f;
+        }
     }
 
     private void HandleSquishing()
@@ -66,7 +77,6 @@ public class BlobBouncer : MonoBehaviour
         if (_direction < 0)
         {
             var progress = (Time.time - _startAt) / BounceLength();
-            Debug.Log(progress);
             if (progress > .25f && (_squishIndex < 0))
             {
                 StartSquish();
@@ -165,7 +175,10 @@ public class BlobBouncer : MonoBehaviour
 
         if (_direction > 0)
         {
-            MoveInRandomDirection();
+            if (Random.value < .6f)
+            {
+                MoveInRandomDirection();
+            }
         }
     }
 
@@ -173,6 +186,15 @@ public class BlobBouncer : MonoBehaviour
     {
         var direction2d = Random.insideUnitCircle;
         var direction = new Vector3(direction2d.x, 0f, direction2d.y);
-        _rigidbody.AddForce(direction.normalized * 10f, ForceMode.Impulse);
+        _rigidbody.AddForce(direction.normalized * 45f, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var tile = collision.collider.GetComponent<FarmTile>();
+        if (tile)
+        {
+            _stopUntil = Time.time + .5f;
+        }
     }
 }
