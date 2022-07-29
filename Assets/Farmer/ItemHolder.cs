@@ -44,10 +44,17 @@ public class ItemHolder : MonoBehaviour
         _itemPreviousParent = _itemGO.transform.parent;
 
         _itemGO.transform.SetParent(itemParent);
+        _itemGO.transform.rotation = itemParent.transform.rotation;
         _itemGO.transform.position = itemParent.transform.position;
-        _itemGO.transform.rotation = Quaternion.Euler(0f, itemParent.transform.rotation.eulerAngles.y, 0f);
-        // _itemGO.transform.position = pivot.transform.position;
+
+        // _itemGO.transform.position = -diff;
+
+
+        // * Quaternion.Euler(-90f, 0f, 90f);
+        // _itemGO.transform.position += new Vector3(0f, -0.169f, -0.169f);
+        // _itemGO.transform.rotation = Quaternion.Euler(0f, itemParent.transform.rotation.eulerAngles.y, 0f);
         // _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
+        // _itemGO.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         // _itemGO.transform.lossyScale = originalScale;
 
@@ -86,27 +93,30 @@ public class ItemHolder : MonoBehaviour
 
     public void Drop()
     {
+        var eatlingRoot = _itemGO.GetComponent<EatlingBabyGrowth>();
+        if (eatlingRoot)
+        {
+            // var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
+            // Destroy(itemRigidbody);
+            var farmTile = _itemTargetSystem.GetCurrentTarget().GetComponent<FarmTile>();
+            FinishDropItem();
+            eatlingRoot.Plant(farmTile);
+        }
+        else
+        {
+            var item = _itemGO;
+            var newPosition = _itemGO.transform.position + _itemGO.transform.forward;
+            FinishDropItem();
+            item.transform.position = newPosition;
+        }
+    }
+
+    private void FinishDropItem()
+    {
         _itemGO.transform.SetParent(_itemPreviousParent);
 
         var pickupable = _itemGO.GetComponent<Pickupable>();
         pickupable.Dropped();
-
-        var newPosition = NearestApplicablePosition();
-
-        var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
-
-        var eatlingRoot = _itemGO.GetComponent<EatlingBabyGrowth>();
-        if (eatlingRoot)
-        {
-            Destroy(itemRigidbody);
-            eatlingRoot.transform.position = newPosition;
-            eatlingRoot.Plant();
-        }
-        else
-        {
-            itemRigidbody.MovePosition(newPosition);
-            itemRigidbody.AddForce(Vector3.up * .1f, ForceMode.Impulse);
-        }
 
         DidDropItem?.Invoke();
 
@@ -116,80 +126,6 @@ public class ItemHolder : MonoBehaviour
 
         if (_itemTargetSystem) _itemTargetSystem.NullTarget();
         _itemTargetSystem = null;
-    }
-
-    private Vector3 NearestApplicablePosition()
-    {
-        var nearestTile = NearestTile();
-        if (nearestTile)
-        {
-            var position = nearestTile.transform.position;
-            var pivotLevelPosition = new Vector3(
-                position.x,
-                pivot.transform.position.y,
-                position.z
-            );
-            return pivotLevelPosition;
-        }
-        else
-        {
-            return pivot.transform.position;
-        }
-    }
-
-    private GameObject NearestTile()
-    {
-        var closestDistance = Mathf.Infinity;
-        GameObject closestObject = null;
-        foreach (var hit in HighlightHits())
-        {
-            if (hit.CompareTag("Player")) continue;
-
-            var tile = hit.gameObject.GetComponentInParent<FarmTile>();
-            if (tile)
-            {
-                var gridPosition = FarmGridUtils.OrientToGrid(hit.gameObject.transform.position);
-                var playerGridPosition = FarmGridUtils.OrientToGrid(pivot.transform.position);
-                var distance = Vector2.Distance(gridPosition, playerGridPosition);
-                if (distance < closestDistance)
-                {
-                    closestObject = hit.gameObject;
-                    closestDistance = distance;
-                }
-            }
-        }
-
-        return closestObject;
-    }
-
-    private IEnumerable<Collider> HighlightHits()
-    {
-        var index = 0;
-        return HighlightPositions().SelectMany((h) => { return Physics.OverlapBox(h, HighlightHitBoxHalfExtends()); });
-    }
-
-    private Vector3 HighlightHitBoxHalfExtends()
-    {
-        return new Vector3(
-            .4f,
-            2f,
-            .4f
-        );
-    }
-
-    private Vector3[] HighlightPositions()
-    {
-        var forward = pivot.transform.forward;
-        var sideForward = forward * .5f;
-        var sideVector = pivot.transform.right * .3f;
-        var transformPosition = transform.position;
-        return new[]
-        {
-            FarmGridUtils.GridAlign(transformPosition),
-            FarmGridUtils.GridAlign(transformPosition + forward),
-            FarmGridUtils.GridAlign(transformPosition + sideForward + sideVector),
-            FarmGridUtils.GridAlign(transformPosition + sideForward - sideVector)
-        };
     }
 
     public void Use()
@@ -203,6 +139,22 @@ public class ItemHolder : MonoBehaviour
             {
                 waterCan.Water(target);
                 UsedItem?.Invoke(ItemActivity.Watering);
+            }
+        }
+
+        var eatling = _itemGO.GetComponent<EatlingBabyGrowth>();
+        if (eatling)
+        {
+            var target = _itemTargetSystem.GetCurrentTarget();
+            if (target)
+            {
+                var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
+                Destroy(itemRigidbody);
+
+                FinishDropItem();
+
+                var farmTile = target.GetComponent<FarmTile>();
+                eatling.Plant(farmTile);
             }
         }
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,10 +8,17 @@ public class ItemUseTargetSystem : MonoBehaviour
 
     public GameObject targetHighlight;
 
+    public enum TargetSystem
+    {
+        ForwardToTheSides,
+        UniformSphere
+    }
+
     public enum TargetType
     {
         HealthyPlantedEatlings,
-        VacantTile
+        VacantTile,
+        Anywhere
     }
 
     public enum SortType
@@ -19,11 +27,14 @@ public class ItemUseTargetSystem : MonoBehaviour
         Closest
     }
 
+    public TargetSystem targetSystem = TargetSystem.UniformSphere;
     public TargetType[] targetTypes = new TargetType[] { };
     public SortType sortType = SortType.WaterNeed;
 
     // Private 
     private GameObject _currentTarget;
+
+    private GameObject pivot;
 
     // Public
 
@@ -32,6 +43,14 @@ public class ItemUseTargetSystem : MonoBehaviour
         return _currentTarget;
     }
 
+    // public Vector3 ApplicableDropPosition()
+    // {
+    //     // Drops always happen in forward-sides direction
+    //     var target = FindNextTargetUsing(TargetSystem.ForwardToTheSides, new TargetType[] {TargetType.Anywhere},
+    //         SortType.Closest);
+    //     return target;
+    // }
+
     public void TargetNext()
     {
         var next = FindNextTarget();
@@ -39,7 +58,10 @@ public class ItemUseTargetSystem : MonoBehaviour
         if (next)
         {
             targetHighlight.SetActive(true);
-            targetHighlight.transform.position = next.transform.position + Vector3.up * 2f;
+
+            var existingPosition = targetHighlight.transform.position;
+            var newPosition = next.transform.position + Vector3.up * 2f;
+            targetHighlight.transform.position = new Vector3(newPosition.x, existingPosition.y, newPosition.z);
         }
         else
         {
@@ -57,24 +79,32 @@ public class ItemUseTargetSystem : MonoBehaviour
 
     private void Awake()
     {
+        pivot = gameObject;
         targetHighlight.SetActive(false);
     }
 
     private GameObject FindNextTarget()
     {
-        var hits = Physics.OverlapSphere(transform.position, 2f);
-        if (hits.Length == 0) return null;
+        return FindNextTargetUsing(targetSystem, targetTypes, sortType);
+    }
+
+    private GameObject FindNextTargetUsing(TargetSystem theTargetSystem, TargetType[] theTargetTypes,
+        SortType theSortType)
+    {
+        var hits = theTargetSystem == TargetSystem.UniformSphere
+            ? Physics.OverlapSphere(transform.position, 2f)
+            : HighlightHits();
 
         return hits
-            .Select(CheckTargetTypes)
+            .Select(h => CheckTargetTypes(h, theTargetTypes))
             .Where(h => h != null)
             .OrderBy(hit =>
             {
-                if (sortType == SortType.WaterNeed)
+                if (theSortType == SortType.WaterNeed)
                 {
                     return hit.GetComponent<EatlingBabyGrowth>().WaterLevel();
                 }
-                else if (sortType == SortType.Closest)
+                else if (theSortType == SortType.Closest)
                 {
                     return Vector3.Distance(transform.position, hit.transform.position);
                 }
@@ -86,9 +116,9 @@ public class ItemUseTargetSystem : MonoBehaviour
             .FirstOrDefault();
     }
 
-    private GameObject CheckTargetTypes(Collider hit)
+    private GameObject CheckTargetTypes(Collider hit, TargetType[] theTargetTypes)
     {
-        foreach (var targetType in targetTypes)
+        foreach (var targetType in theTargetTypes)
         {
             if (targetType == TargetType.HealthyPlantedEatlings)
             {
@@ -125,5 +155,33 @@ public class ItemUseTargetSystem : MonoBehaviour
         if (babyGrowth.IsDead()) return null;
 
         return occupant;
+    }
+
+    private IEnumerable<Collider> HighlightHits()
+    {
+        return HighlightPositions().SelectMany((h) => { return Physics.OverlapBox(h, HighlightHitBoxHalfExtends()); });
+    }
+
+    private Vector3 HighlightHitBoxHalfExtends()
+    {
+        return new Vector3(
+            .4f,
+            2f,
+            .4f
+        );
+    }
+
+    private Vector3[] HighlightPositions()
+    {
+        var forward = pivot.transform.forward * .5f;
+        var sideForward = forward * .3f;
+        var sideVector = pivot.transform.right * .3f;
+        var transformPosition = transform.position;
+        return new[]
+        {
+            FarmGridUtils.GridAlign(transformPosition + forward),
+            FarmGridUtils.GridAlign(transformPosition + sideForward + sideVector),
+            FarmGridUtils.GridAlign(transformPosition + sideForward - sideVector)
+        };
     }
 }
