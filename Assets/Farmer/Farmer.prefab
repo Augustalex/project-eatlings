@@ -490,6 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 1075933080824285146}
+  itemParent: {fileID: 4009815776281754208}
 --- !u!135 &5541791119422166475
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -570,13 +571,64 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4c966d77037f78747a44543a8f5d41d0, type: 2}
+    - target: {fileID: -8043334288827993033, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8043334288827993033, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8043334288827993033, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6931076361147541737, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6931076361147541737, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6931076361147541737, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 145e082abe3e19045995ff21f2ec4c3a,
         type: 3}
       propertyPath: m_Name
       value: Farmer-Sheep
       objectReference: {fileID: 0}
+    - target: {fileID: 7534230401510456897, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534230401510456897, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534230401510456897, guid: 145e082abe3e19045995ff21f2ec4c3a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 145e082abe3e19045995ff21f2ec4c3a, type: 3}
+--- !u!4 &4009815776281754208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6803174939488760617, guid: 145e082abe3e19045995ff21f2ec4c3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7623470073874139465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7281591027622474776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 145e082abe3e19045995ff21f2ec4c3a,

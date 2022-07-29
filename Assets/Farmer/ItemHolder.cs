@@ -7,6 +7,7 @@ public class ItemHolder : MonoBehaviour
 {
     // Public
     public GameObject pivot;
+    public Transform itemParent;
 
     public event Action DidHoldItem;
     public event Action DidDropItem;
@@ -16,7 +17,7 @@ public class ItemHolder : MonoBehaviour
     public enum ItemGrabMode
     {
     }
-    
+
     public enum ItemActivity
     {
         Watering,
@@ -41,9 +42,14 @@ public class ItemHolder : MonoBehaviour
         item.PickedUp();
 
         _itemPreviousParent = _itemGO.transform.parent;
-        _itemGO.transform.SetParent(pivot.transform);
-        _itemGO.transform.position = pivot.transform.position;
-        _itemGO.transform.rotation = Quaternion.Euler(0f, -pivot.transform.rotation.eulerAngles.y, 0f);
+
+        _itemGO.transform.SetParent(itemParent);
+        _itemGO.transform.position = itemParent.transform.position;
+        _itemGO.transform.rotation = Quaternion.Euler(0f, itemParent.transform.rotation.eulerAngles.y, 0f);
+        // _itemGO.transform.position = pivot.transform.position;
+        // _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
+
+        // _itemGO.transform.lossyScale = originalScale;
 
         DidHoldItem?.Invoke();
     }
