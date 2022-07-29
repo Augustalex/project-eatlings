@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: FarmerSettings
   m_EditorClassIdentifier: 
   baseMovementSpeed: 20
-  maxWalkSpeed: 2
-  maxRunSpeed: 3.5
-  walkSpeedMultiplier: 0.8
+  maxWalkSpeed: 3
+  maxRunSpeed: 6
+  walkSpeedMultiplier: 3
+  runSpeedMultiplier: 1.5
+  walkToRunDelta: 0.5
