@@ -3,6 +3,7 @@ using UnityEngine;
 public class EatlingBabyGrowth : MonoBehaviour
 {
     // Public
+    
     public GameObject teen;
     public float timeUntilTeen = 10;
     public float timeUntilFullyGrown = 30;
@@ -14,6 +15,9 @@ public class EatlingBabyGrowth : MonoBehaviour
     private bool _fullyGrown;
     private FarmTile _tile;
 
+    private float _waterLevel;
+    private float _dryLevel;
+    
     private void Awake()
     {
         teen.SetActive(false);
