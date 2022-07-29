@@ -9,12 +9,14 @@ public class ItemUseTargetSystem : MonoBehaviour
 
     public enum TargetType
     {
-        HealthyPlantedEatlings
+        HealthyPlantedEatlings,
+        VacantTile
     }
 
     public enum SortType
     {
-        WaterNeed
+        WaterNeed,
+        Closest
     }
 
     public TargetType[] targetTypes = new TargetType[] { };
@@ -72,6 +74,10 @@ public class ItemUseTargetSystem : MonoBehaviour
                 {
                     return hit.GetComponent<EatlingBabyGrowth>().WaterLevel();
                 }
+                else if (sortType == SortType.Closest)
+                {
+                    return Vector3.Distance(transform.position, hit.transform.position);
+                }
                 else
                 {
                     return 0f;
@@ -89,9 +95,22 @@ public class ItemUseTargetSystem : MonoBehaviour
                 var target = CheckHitForHealthyPlantedEatling(hit);
                 if (target) return target;
             }
+            else if (targetType == TargetType.VacantTile)
+            {
+                var target = CheckHitForVacantTile(hit);
+                if (target) return target;
+            }
         }
 
         return null;
+    }
+
+    private GameObject CheckHitForVacantTile(Collider hit)
+    {
+        var tile = hit.GetComponent<FarmTile>();
+        if (tile == null) return null;
+
+        return tile.Vacant() ? tile.gameObject : null;
     }
 
     private GameObject CheckHitForHealthyPlantedEatling(Collider hit)

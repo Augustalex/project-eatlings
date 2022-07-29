@@ -11,6 +11,15 @@ public class ItemHolder : MonoBehaviour
     public event Action DidHoldItem;
     public event Action DidDropItem;
 
+    public event Action<ItemActivity> UsedItem;
+
+    public enum ItemActivity
+    {
+        Watering,
+        Plant,
+        MiscPickup
+    }
+
     // Private
     private GameObject _itemGO;
     private Pickupable _item;
@@ -114,7 +123,7 @@ public class ItemHolder : MonoBehaviour
         foreach (var hit in HighlightHits())
         {
             if (hit.CompareTag("Player")) continue;
-            
+
             var tile = hit.gameObject.GetComponentInParent<FarmTile>();
             if (tile)
             {
@@ -172,6 +181,7 @@ public class ItemHolder : MonoBehaviour
             if (target)
             {
                 waterCan.Water(target);
+                UsedItem?.Invoke(ItemActivity.Watering);
             }
         }
     }

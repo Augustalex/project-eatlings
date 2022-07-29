@@ -77,7 +77,6 @@ public class FarmerMovement : MonoBehaviour
 
     public bool Running()
     {
-        Debug.Log("RUNNING?: " + _movement.magnitude);
         return _movement.magnitude > .8f || _forceRun;
     }
 
