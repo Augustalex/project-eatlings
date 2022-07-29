@@ -23,12 +23,12 @@ public class GameSceneManager : MonoBehaviour
     public void ChangeSceneToFarm()
     {
         forrest.SetActive(false);        
-        farm.SetActive(true);
+        // farm.SetActive(true);
     }
 
     public void ChangeSceneToForrest()
     {
-        farm.SetActive(false);
+        // farm.SetActive(false);
         
         forrest.SetActive(true);
     }
