@@ -502,6 +502,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeadEye
       objectReference: {fileID: 0}
+    - target: {fileID: 6014192756066373387, guid: 36b5c753e5e35d340b0491091399bfb8,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8024935021851209904, guid: 36b5c753e5e35d340b0491091399bfb8,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b5c753e5e35d340b0491091399bfb8, type: 3}
 --- !u!1 &4825766422706796415 stripped
@@ -579,6 +589,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
     - target: {fileID: -6773269537243718340, guid: 4229ae3d8aed2434d845c63a0841cafc,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6773269537243718340, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
@@ -591,6 +606,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464669563333124463, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4464669563333124463, guid: 4229ae3d8aed2434d845c63a0841cafc,
         type: 3}
@@ -886,6 +906,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8316f2156695d8444a076d94e1554935, type: 2}
     - target: {fileID: -6773269537243718340, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6773269537243718340, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
@@ -903,6 +928,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: eatling_orange_baby
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464669563333124463, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4464669563333124463, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
