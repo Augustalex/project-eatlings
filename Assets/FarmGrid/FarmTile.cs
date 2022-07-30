@@ -8,7 +8,7 @@ public class FarmTile : MonoBehaviour
 
     void Awake()
     {
-        hole.SetActive(false);
+        // hole.SetActive(false);
     }
 
     public void Occupy(GameObject o)
