@@ -78,7 +78,8 @@ public class FarmerMovement : MonoBehaviour
 
     public bool Running()
     {
-        return _movement.magnitude > .8f || _forceRun;
+        return _forceRun;
+        //return _movement.magnitude > .8f || _forceRun;
     }
 
     public void SetForceRun(bool on)
