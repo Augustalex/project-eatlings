@@ -8,6 +8,7 @@ namespace Farmer.Scripts
         public float baseMovementSpeed = 20f;
         public float maxWalkSpeed = 10f;
         public float maxRunSpeed = 20f;
-        public float walkSpeedMultiplier = 10f;
+        public float walkSpeedMultiplier = 0.8f;
+        public float runSpeedMultiplier = 0.8f;
     }
 }

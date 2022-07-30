@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMovementSpeed: 20
   maxWalkSpeed: 2
-  maxRunSpeed: 3.5
-  walkSpeedMultiplier: 0.8
+  maxRunSpeed: 7
+  walkSpeedMultiplier: 2
+  runSpeedMultiplier: 1

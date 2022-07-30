@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8863184122368453371
 Transform:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfa00172d7326747bb96b27e059e178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlighter: {fileID: 0}
+  highlighter: {fileID: 813011831400906216}
   updatePosition: 1
 --- !u!114 &204165935215979965
 MonoBehaviour:
@@ -763,6 +763,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8577601917716952444, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7980316727677748081, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -773,6 +778,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a6bb463d5029b9c46a0f05e3ffc398c3, type: 2}
+    - target: {fileID: -5347376785104885218, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4301843404558946002, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -793,6 +803,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c4b0d4d382f932f45bc7f88579cfb4fc, type: 2}
+    - target: {fileID: -2922291686094244052, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2597981990761942593, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -817,6 +832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797689126450290789, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3204628715745115755, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
@@ -1063,6 +1083,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8577601917716952444, guid: a37aa7f79b99d1440959c8d9ed5c7516,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7980316727677748081, guid: a37aa7f79b99d1440959c8d9ed5c7516,
         type: 3}
       propertyPath: m_Layer
@@ -1073,10 +1098,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c4b0d4d382f932f45bc7f88579cfb4fc, type: 2}
+    - target: {fileID: -5347376785104885218, guid: a37aa7f79b99d1440959c8d9ed5c7516,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -3368765499957344130, guid: a37aa7f79b99d1440959c8d9ed5c7516,
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -2922291686094244052, guid: a37aa7f79b99d1440959c8d9ed5c7516,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2597981990761942593, guid: a37aa7f79b99d1440959c8d9ed5c7516,
         type: 3}
@@ -1102,6 +1137,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797689126450290789, guid: a37aa7f79b99d1440959c8d9ed5c7516,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3204628715745115755, guid: a37aa7f79b99d1440959c8d9ed5c7516,
         type: 3}

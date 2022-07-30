@@ -15,6 +15,7 @@ public class FarmerMovement : MonoBehaviour
     private Vector2 _movement;
     private Rigidbody _rigidbody;
     private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
+    private static readonly int MovementType = Animator.StringToHash("MovementType");
     private bool _forceRun;
     private float _freezeMovementUntil;
 
@@ -86,7 +87,8 @@ public class FarmerMovement : MonoBehaviour
 
     private bool Running()
     {
-        return _movement.magnitude > .8f || _forceRun;
+        return _forceRun;
+        //return _movement.magnitude > .8f || _forceRun;
     }
 
     public void SetForceRun(bool on)
@@ -133,6 +135,11 @@ public class FarmerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetFloat(MovementSpeed, _rigidbody.velocity.magnitude * farmerSettings.walkSpeedMultiplier);
+        var isRunning = Running();
+        var velocity = _rigidbody.velocity;
+        var movementSpeedValue = velocity.magnitude / (isRunning ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed) * (isRunning ? farmerSettings.runSpeedMultiplier : farmerSettings.walkSpeedMultiplier);
+        var movementTypeValue = velocity.magnitude / farmerSettings.maxRunSpeed;
+        animator.SetFloat(MovementSpeed, movementSpeedValue);
+        animator.SetFloat(MovementType, movementTypeValue);
     }
 }
