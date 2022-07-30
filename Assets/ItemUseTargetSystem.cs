@@ -31,6 +31,8 @@ public class ItemUseTargetSystem : MonoBehaviour
     public TargetType[] targetTypes = new TargetType[] { };
     public SortType sortType = SortType.WaterNeed;
 
+    public bool groundHighlight = true;
+
     // Private 
     private GameObject _currentTarget;
 
@@ -59,9 +61,9 @@ public class ItemUseTargetSystem : MonoBehaviour
         {
             targetHighlight.SetActive(true);
 
-            var existingPosition = targetHighlight.transform.position;
             var newPosition = next.transform.position + Vector3.up * 2f;
-            targetHighlight.transform.position = new Vector3(newPosition.x, existingPosition.y, newPosition.z);
+            targetHighlight.transform.position = new Vector3(newPosition.x,
+                groundHighlight ? 0f : newPosition.y, newPosition.z);
         }
         else
         {
@@ -80,6 +82,8 @@ public class ItemUseTargetSystem : MonoBehaviour
     private void Awake()
     {
         pivot = gameObject;
+
+        targetHighlight.transform.SetParent(null);
         targetHighlight.SetActive(false);
     }
 

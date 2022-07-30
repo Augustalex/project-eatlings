@@ -16,11 +16,18 @@ public class FarmerMovement : MonoBehaviour
     private Rigidbody _rigidbody;
     private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
     private bool _forceRun;
+    private float _freezeMovementUntil;
 
     // Public methods
     public void SetMovementVector(Vector2 movement)
     {
         _movement = movement;
+    }
+
+    public void StopAndFreeze()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _freezeMovementUntil = Time.time + .08f;
     }
 
     // Private methods
@@ -31,6 +38,8 @@ public class FarmerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.time < _freezeMovementUntil) return;
+        
         UpdateMovement();
         ClampToMaxSpeed();
         InertialDampening();
@@ -70,12 +79,12 @@ public class FarmerMovement : MonoBehaviour
         }
     }
 
-    public float MaxSpeed()
+    private float MaxSpeed()
     {
         return Running() ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed;
     }
 
-    public bool Running()
+    private bool Running()
     {
         return _movement.magnitude > .8f || _forceRun;
     }

@@ -139,6 +139,20 @@ public class ItemHolder : MonoBehaviour
             {
                 waterCan.Water(target);
                 UsedItem?.Invoke(ItemActivity.Watering);
+
+                var farmerMovement = GetComponentInParent<FarmerMovement>();
+                farmerMovement.StopAndFreeze();
+
+                var current = farmerMovement.transform.position;
+                var currentFlat = new Vector2(current.x, current.z);
+                var next = target.transform.position;
+                var nextFlat = new Vector2(next.x, next.z);
+
+                var direction = (nextFlat - currentFlat).normalized;
+                var angles = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+
+                var newRotation = Quaternion.AngleAxis(angles, Vector3.up);
+                farmerMovement.GetComponent<FarmerRotation>().ForceRotation(newRotation);
             }
         }
 

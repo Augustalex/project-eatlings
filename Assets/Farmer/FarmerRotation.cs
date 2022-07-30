@@ -25,4 +25,9 @@ public class FarmerRotation : MonoBehaviour
         _farmerPivotAccess.pivot.transform.rotation = Quaternion.Lerp(_farmerPivotAccess.pivot.transform.rotation,
             Quaternion.AngleAxis(angles, Vector3.up), .1f);
     }
+
+    public void ForceRotation(Quaternion rotation)
+    {
+        _farmerPivotAccess.pivot.transform.rotation = rotation;
+    }
 }
