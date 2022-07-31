@@ -71,7 +71,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &8986155247871954436
 MonoBehaviour:
@@ -107,14 +107,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4634621796213516915}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d06c8eb3505aed458c7618ed6998194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHeight: 0
-  maxHeight: 2
-  bounceLength: 1
+  eatlingBounceSettings: {fileID: 11400000, guid: 402af3fb506ecc44597f4dabc2164e7a,
+    type: 2}
 --- !u!114 &6845822186029898570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +275,7 @@ GameObject:
   - component: {fileID: 6087198496726621544}
   - component: {fileID: 5777070905973989364}
   - component: {fileID: 453378912455889765}
+  - component: {fileID: 5060176585003700333}
   m_Layer: 0
   m_Name: FullGrownRoot
   m_TagString: Untagged
@@ -331,7 +331,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6087198496726621544
 MonoBehaviour:
@@ -372,6 +372,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6b457a1ceac2e4fab91339df12fcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5060176585003700333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8863184122368453370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d06c8eb3505aed458c7618ed6998194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatlingBounceSettings: {fileID: 11400000, guid: 402af3fb506ecc44597f4dabc2164e7a,
+    type: 2}
 --- !u!1 &8863184122813418909
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -23,7 +20,6 @@ public class ItemHolderParent : MonoBehaviour
     private void OnDisable()
     {
         itemHolder.DidHoldItem -= ItemHolderOnDidHoldItem;
-        itemHolder.DidDropItem -= ItemHolderOnDidDropItem;
     }
 
     private void ItemHolderOnDidDropItem()

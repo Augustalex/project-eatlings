@@ -1,28 +1,28 @@
+using eatlings;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BlobBouncer : MonoBehaviour
 {
     // Public
-    public float minHeight = 0f;
-    public float maxHeight = 1f;
-    public float bounceLength = .75f;
+
+    public EatlingBounceSettings eatlingBounceSettings;
 
     // Private
+
     private const float NormalSquishHeight = 1f;
-    private int _direction = 1;
-    private float _startAt;
     private Pickupable _pickupable;
     private EatlingBabyGrowth _eatlingBabyGrowth;
-    private bool _bouncing;
-    private float _startedSquish;
-    private float _squishState;
-    private int _squishIndex;
-    private readonly float[] _squishSequence = new[] {.2f, 1.5f, .5f, 1f, .8f, 1f};
-    private readonly float[] _squishSequenceLengths = new[] {.2f, .15f, .1f, .05f, .02f, .01f};
-    private Vector3 _originalScale;
     private Rigidbody _rigidbody;
-    private float _stopUntil;
+    private Vector3 _originalScale;
+
+    private float _forceDown;
+    private bool _moved;
+    private float _groundLevel;
+    private Vector3 _frameScale;
+    private float _recoilStarted = -100f;
+    private float _jumpedAt;
+    private double _waitTimeUntil;
 
     // Private
 
@@ -35,7 +35,57 @@ public class BlobBouncer : MonoBehaviour
         _originalScale = transform.localScale;
     }
 
-    public bool CanBounce()
+    void Update()
+    {
+        if (!CanBounce())
+        {
+            transform.localScale = _originalScale;
+            return;
+        }
+
+        if (_rigidbody.velocity.magnitude < .01f)
+        {
+            _groundLevel = _rigidbody.position.y;
+        }
+
+        _forceDown = Mathf.Max(_rigidbody.position.y - _groundLevel, 0f) * 10f;
+
+        if (RecoilDone() && !_moved)
+        {
+            if (_waitTimeUntil < 0)
+            {
+                _waitTimeUntil = Time.time + Random.Range(0f, 3f);
+            }
+            else if (Time.time > _waitTimeUntil)
+            {
+                _rigidbody.AddForce(Vector3.up * Random.Range(2.5f, 5f), ForceMode.Impulse);
+                MoveInRandomDirection();
+                _moved = true;
+                _jumpedAt = Time.time;
+                _waitTimeUntil = -1f;
+            }
+        }
+
+        if (RecoilDone() && _moved)
+        {
+            if (_rigidbody.velocity.y < 0f && Time.time - _jumpedAt > .1f && _forceDown >= 0f)
+            {
+                _rigidbody.AddForce(Vector3.down * _forceDown * Time.deltaTime, ForceMode.Force);
+
+                if (_forceDown < 0.2f)
+                {
+                    TriggerImpact();
+                }
+            }
+        }
+
+        _frameScale = _originalScale;
+        HandleSquishing();
+        SquishOnRigidbody();
+        transform.localScale = _frameScale;
+    }
+
+    private bool CanBounce()
     {
         if (_pickupable.IsPickedUp()) return false;
         if (_eatlingBabyGrowth.IsPlanted()) return false;
@@ -44,166 +94,74 @@ public class BlobBouncer : MonoBehaviour
         return true;
     }
 
-    void Update()
+    private bool RecoilDone()
     {
-        if (!CanBounce())
-        {
-            if (_bouncing)
-            {
-                transform.localScale = Vector3.one;
-                _bouncing = false;
-            }
+        var duration = (Time.time - _recoilStarted);
+        var progress = duration / eatlingBounceSettings.animationDuration;
 
-            return;
-        }
+        return progress >= 1f;
+    }
 
-        _bouncing = true;
-        if (BounceProgress() >= 1f) SwitchDirection();
+    private void TriggerImpact()
+    {
+        _recoilStarted = Time.time;
+        _moved = false;
+    }
 
-        var currentPosition = transform.position;
-        var newPosition = new Vector3(
-            currentPosition.x,
-            Mathf.Lerp(_direction < 0 ? maxHeight : minHeight, _direction < 0 ? minHeight : maxHeight,
-                BounceProgress()),
-            currentPosition.z
+    private void SquishOnRigidbody()
+    {
+        var peak = 4f;
+        var delta = Mathf.Clamp(Mathf.Abs(_rigidbody.velocity.y) / peak, 0f, 1f);
+        var progress = _rigidbody.velocity.y > 0 ? delta : 0f;
+
+        var wideSqueeze = 1f - (progress) * .3f;
+        var longSqueeze = 1f + (progress) * .7f;
+        _frameScale = new Vector3(
+            _frameScale.x * wideSqueeze,
+            _frameScale.y * longSqueeze,
+            _frameScale.z * wideSqueeze
         );
-        transform.position = newPosition;
-
-        HandleSquishing();
-
-        if (Time.time < _stopUntil)
-        {
-            _rigidbody.drag = 100f;
-        }
-        else
-        {
-            _rigidbody.drag = .25f;
-        }
     }
 
     private void HandleSquishing()
     {
-        if (_direction < 0)
-        {
-            var progress = (Time.time - _startAt) / BounceLength();
-            if (progress > .25f && (_squishIndex < 0))
-            {
-                StartSquish();
-            }
-        }
-        else
-        {
-            _squishIndex = -1;
-        }
-
-        UpdateSquish();
-    }
-
-    private float BounceProgress()
-    {
-        var progress = (Time.time - _startAt) / BounceLength();
-        return Mathf.Clamp(_direction < 0 ? EaseOutBounce(progress) : 1 - EaseInQuart(1 - progress), 0f, 1f);
-    }
-
-    private float EaseInQuart(float x)
-    {
-        return x * x * x * x;
-    }
-
-    private void StartSquish()
-    {
-        _startedSquish = Time.time;
-        _squishState = 1f;
-        _squishIndex = 0;
-    }
-
-    private void UpdateSquish()
-    {
-        if (_squishIndex >= _squishSequence.Length || _squishIndex < 0)
-        {
-            _squishState = 1f;
-        }
-        else
-        {
-            var squishTarget = _squishSequence[_squishIndex];
-            var squishDuration = _squishSequenceLengths[_squishIndex];
-
-            var time = Time.time - _startedSquish;
-            if (time > squishDuration)
-            {
-                _squishIndex += 1;
-                _squishState = squishTarget;
-                _startedSquish = Time.time;
-            }
-            else
-            {
-                var previousTarget = _squishIndex == 0 ? NormalSquishHeight : _squishSequence[_squishIndex - 1];
-                _squishState = Mathf.Lerp(previousTarget, squishTarget, time / squishDuration);
-            }
-        }
-
-        transform.localScale = new Vector3(
-            _originalScale.x + _originalScale.x * Mathf.Clamp(1f - _squishState, 0f, 1f),
-            NormalSquishHeight * _squishState,
-            _originalScale.z + _originalScale.z * Mathf.Clamp(1f - _squishState, 0f, 1f)
+        var duration = (Time.time - _recoilStarted);
+        var progress = Mathf.Clamp(duration / eatlingBounceSettings.animationDuration, 0f, 1f);
+        var yScale = eatlingBounceSettings.impactSqueeze.Evaluate(progress);
+        _frameScale = new Vector3(
+            _frameScale.x + _frameScale.x * Mathf.Clamp(1f - yScale, 0f, 1f),
+            _frameScale.y * yScale,
+            _frameScale.z + _frameScale.z * Mathf.Clamp(1f - yScale, 0f, 1f)
         );
-    }
-
-    private float EaseOutBounce(float x)
-    {
-        float n1 = 7.5625f;
-        float d1 = 2.75f;
-
-        if (x < 1 / d1)
-        {
-            return n1 * x * x;
-        }
-        else if (x < 2 / d1)
-        {
-            return n1 * (x -= 1.5f / d1) * x + 0.75f;
-        }
-        else if (x < 2.5 / d1)
-        {
-            return n1 * (x -= 2.25f / d1) * x + 0.9375f;
-        }
-        else
-        {
-            return n1 * (x -= 2.625f / d1) * x + 0.984375f;
-        }
-    }
-
-    private float BounceLength()
-    {
-        return bounceLength;
-    }
-
-    private void SwitchDirection()
-    {
-        _direction *= -1;
-        _startAt = Time.time;
-
-        if (_direction > 0)
-        {
-            if (Random.value < .6f)
-            {
-                MoveInRandomDirection();
-            }
-        }
     }
 
     private void MoveInRandomDirection()
     {
         var direction2d = Random.insideUnitCircle;
         var direction = new Vector3(direction2d.x, 0f, direction2d.y);
-        _rigidbody.AddForce(direction.normalized * 45f, ForceMode.Impulse);
+        _rigidbody.AddForce(direction.normalized * Random.Range(.3f, .5f), ForceMode.Impulse);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        var tile = collision.collider.GetComponent<FarmTile>();
-        if (tile)
-        {
-            _stopUntil = Time.time + .5f;
-        }
-    }
+    // private float EaseOutBounce(float x)
+    // {
+    //     float n1 = 7.5625f;
+    //     float d1 = 2.75f;
+    //
+    //     if (x < 1 / d1)
+    //     {
+    //         return n1 * x * x;
+    //     }
+    //     else if (x < 2 / d1)
+    //     {
+    //         return n1 * (x -= 1.5f / d1) * x + 0.75f;
+    //     }
+    //     else if (x < 2.5 / d1)
+    //     {
+    //         return n1 * (x -= 2.25f / d1) * x + 0.9375f;
+    //     }
+    //     else
+    //     {
+    //         return n1 * (x -= 2.625f / d1) * x + 0.984375f;
+    //     }
+    // }
 }
