@@ -10,26 +10,19 @@ public class BlobBouncer : MonoBehaviour
 
     // Private
 
-    // Static
     private const float NormalSquishHeight = 1f;
     private Pickupable _pickupable;
     private EatlingBabyGrowth _eatlingBabyGrowth;
     private Rigidbody _rigidbody;
     private Vector3 _originalScale;
 
-    // Squish animation state
-    private float _startedSquish;
-    private float _squishState;
-    private int _squishIndex;
-
-    // Internal
-    private int _direction = 1;
     private float _forceDown;
     private bool _moved;
     private float _groundLevel;
     private Vector3 _frameScale;
     private float _recoilStarted = -100f;
     private float _jumpedAt;
+    private double _waitTimeUntil;
 
     // Private
 
@@ -59,22 +52,25 @@ public class BlobBouncer : MonoBehaviour
 
         if (RecoilDone() && !_moved)
         {
-            _rigidbody.AddForce(Vector3.up * 600f, ForceMode.Impulse);
-            MoveInRandomDirection();
-            _moved = true;
-            _jumpedAt = Time.time;
+            if (_waitTimeUntil < 0)
+            {
+                _waitTimeUntil = Time.time + Random.Range(0f, 3f);
+            }
+            else if (Time.time > _waitTimeUntil)
+            {
+                _rigidbody.AddForce(Vector3.up * Random.Range(2.5f, 5f), ForceMode.Impulse);
+                MoveInRandomDirection();
+                _moved = true;
+                _jumpedAt = Time.time;
+                _waitTimeUntil = -1f;
+            }
         }
 
-        if (RecoilDone())
+        if (RecoilDone() && _moved)
         {
-            if (_rigidbody.velocity.y > .1f)
-            {
-                _direction = 1;
-            }
-            else if (Time.time - _jumpedAt > .1f && _forceDown >= 0f)
+            if (_rigidbody.velocity.y < 0f && Time.time - _jumpedAt > .1f && _forceDown >= 0f)
             {
                 _rigidbody.AddForce(Vector3.down * _forceDown * Time.deltaTime, ForceMode.Force);
-                _direction = -1;
 
                 if (_forceDown < 0.2f)
                 {
@@ -100,7 +96,10 @@ public class BlobBouncer : MonoBehaviour
 
     private bool RecoilDone()
     {
-        return _squishIndex >= eatlingBounceSettings.animation.Length || _squishIndex < 0;
+        var duration = (Time.time - _recoilStarted);
+        var progress = duration / eatlingBounceSettings.animationDuration;
+
+        return progress >= 1f;
     }
 
     private void TriggerImpact()
@@ -113,10 +112,12 @@ public class BlobBouncer : MonoBehaviour
 
     private void SquishOnRigidbody()
     {
-        var progress = (_forceDown / 5.5f) * 2f;
-        var wideSqueeze = 1f - (Mathf.Clamp(_forceDown / 5.5f, 0f, 1f)) * .3f;
-        var longSqueeze =
-            1f + (Mathf.Clamp(_forceDown / 5.5f, 0f, 1f)) * .5f; // Should be elastic up as well!
+        var peak = 4f;
+        var delta = Mathf.Clamp(Mathf.Abs(_rigidbody.velocity.y) / peak, 0f, 1f);
+        var progress = _rigidbody.velocity.y > 0 ? delta : 0f;
+
+        var wideSqueeze = 1f - (progress) * .3f;
+        var longSqueeze = 1f + (progress) * .7f;
         _frameScale = new Vector3(
             _frameScale.x * wideSqueeze,
             _frameScale.y * longSqueeze,
@@ -126,12 +127,14 @@ public class BlobBouncer : MonoBehaviour
 
     private void HandleSquishing()
     {
-        if (RecoilDone())
-        {
-            _squishIndex = -1;
-        }
-
-        UpdateSquish();
+        var duration = (Time.time - _recoilStarted);
+        var progress = Mathf.Clamp(duration / eatlingBounceSettings.animationDuration, 0f, 1f);
+        var yScale = eatlingBounceSettings.impactSqueeze.Evaluate(progress);
+        _frameScale = new Vector3(
+            _frameScale.x + _frameScale.x * Mathf.Clamp(1f - yScale, 0f, 1f),
+            _frameScale.y * yScale,
+            _frameScale.z + _frameScale.z * Mathf.Clamp(1f - yScale, 0f, 1f)
+        );
     }
 
     private void StartSquish()
@@ -141,46 +144,11 @@ public class BlobBouncer : MonoBehaviour
         _squishIndex = 0;
     }
 
-    private void UpdateSquish()
-    {
-        if (_squishIndex >= eatlingBounceSettings.animation.Length || _squishIndex < 0)
-        {
-            _squishState = 1f;
-        }
-        else
-        {
-            var squishTarget = eatlingBounceSettings.animation[_squishIndex].Squeeze;
-            var squishDuration = eatlingBounceSettings.animation[_squishIndex].Duration *
-                                 eatlingBounceSettings.timeScale;
-
-            var time = Time.time - _startedSquish;
-            if (time > squishDuration)
-            {
-                _squishIndex += 1;
-                _squishState = squishTarget;
-                _startedSquish = Time.time;
-            }
-            else
-            {
-                var previousTarget = _squishIndex == 0
-                    ? NormalSquishHeight
-                    : eatlingBounceSettings.animation[_squishIndex - 1].Squeeze;
-                _squishState = Mathf.Lerp(previousTarget, squishTarget, time / squishDuration);
-            }
-        }
-
-        _frameScale = new Vector3(
-            _frameScale.x + _frameScale.x * Mathf.Clamp(1f - _squishState, 0f, 1f),
-            _frameScale.y * _squishState,
-            _frameScale.z + _frameScale.z * Mathf.Clamp(1f - _squishState, 0f, 1f)
-        );
-    }
-
     private void MoveInRandomDirection()
     {
         var direction2d = Random.insideUnitCircle;
         var direction = new Vector3(direction2d.x, 0f, direction2d.y);
-        _rigidbody.AddForce(direction.normalized * 45f, ForceMode.Impulse);
+        _rigidbody.AddForce(direction.normalized * Random.Range(.3f, .5f), ForceMode.Impulse);
     }
 
     // private float EaseOutBounce(float x)
