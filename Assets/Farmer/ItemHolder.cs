@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ItemHolder : MonoBehaviour
@@ -11,8 +12,11 @@ public class ItemHolder : MonoBehaviour
 
     public event Action DidHoldItem;
     public event Action DidDropItem;
+    public event Action<ItemActivity> DidUseItem;
 
     public event Action<ItemActivity> UsedItem;
+
+    private Action _doWhenAnimationDone = null;
 
     public enum ItemGrabMode
     {
@@ -93,49 +97,57 @@ public class ItemHolder : MonoBehaviour
 
     public void Drop()
     {
-        var eatlingRoot = _itemGO.GetComponent<EatlingBabyGrowth>();
-        if (eatlingRoot)
+        var item = _itemGO;
+
+        var groundRay = new Ray(_itemGO.transform.position, Vector3.down);
+        if (Physics.Raycast(groundRay, out var groundHit, 10f, LayerMask.NameToLayer("Ground")))
         {
-            // var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
-            // Destroy(itemRigidbody);
-            var farmTile = _itemTargetSystem.GetCurrentTarget().GetComponent<FarmTile>();
-            FinishDropItem();
-            eatlingRoot.Plant(farmTile);
+            var newPosition = groundHit.point + Vector3.up;
+            var rotation = _itemGO.transform.rotation.eulerAngles;
+            ResetItemParent();
+            TellItemItWasDropped();
+            DidDropItem?.Invoke();
+            ResetItemVariables();
+
+            item.transform.position = newPosition;
+            item.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         }
         else
         {
-            var item = _itemGO;
-            var newPosition = _itemGO.transform.position + _itemGO.transform.forward;
-            FinishDropItem();
-            item.transform.position = newPosition;
+            Debug.Log("How about, no?");
         }
     }
 
-    private void FinishDropItem()
+    private void ResetItemParent()
     {
         _itemGO.transform.SetParent(_itemPreviousParent);
+    }
 
+    private void TellItemItWasDropped()
+    {
         var pickupable = _itemGO.GetComponent<Pickupable>();
         pickupable.Dropped();
+    }
 
-        DidDropItem?.Invoke();
-
+    private void ResetItemVariables()
+    {
         _itemGO = null;
         _item = null;
-        _itemPreviousParent = null;
-
         if (_itemTargetSystem) _itemTargetSystem.NullTarget();
         _itemTargetSystem = null;
     }
-    
-    
-    public void FinishAnimatingPlanting() {
+
+    public void TriggerAnimationDone()
+    {
         Debug.Log("Now plant me!");
+        _doWhenAnimationDone?.Invoke();
+        _doWhenAnimationDone = null;
     }
 
     public void Use()
     {
         // TODO: Can we use some interface or something here to make this more Polymorphic? :) Or maybe simple is better?
+
         var waterCan = _itemGO.GetComponent<WateringCan>();
         if (waterCan)
         {
@@ -167,13 +179,21 @@ public class ItemHolder : MonoBehaviour
             var target = _itemTargetSystem.GetCurrentTarget();
             if (target)
             {
-                var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
-                Destroy(itemRigidbody);
+                DidUseItem?.Invoke(ItemActivity.Plant);
 
-                FinishDropItem();
+                _doWhenAnimationDone = () =>
+                {
+                    var itemRigidbody = _itemGO.GetComponent<Rigidbody>();
+                    Destroy(itemRigidbody);
 
-                var farmTile = target.GetComponent<FarmTile>();
-                eatling.Plant(farmTile);
+                    ResetItemParent();
+                    TellItemItWasDropped();
+                    DidDropItem?.Invoke();
+                    ResetItemVariables();
+
+                    var farmTile = target.GetComponent<FarmTile>();
+                    eatling.Plant(farmTile);
+                };
             }
         }
     }
