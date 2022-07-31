@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Forrest.unity
     guid: 3e43c3b1180a041138cfa162fd5c7c8c
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 11d59868ca3a23c498b2c5d6c34ee8fb,
+      type: 2}
