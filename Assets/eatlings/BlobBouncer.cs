@@ -106,8 +106,6 @@ public class BlobBouncer : MonoBehaviour
     {
         _recoilStarted = Time.time;
         _moved = false;
-
-        StartSquish();
     }
 
     private void SquishOnRigidbody()
@@ -135,13 +133,6 @@ public class BlobBouncer : MonoBehaviour
             _frameScale.y * yScale,
             _frameScale.z + _frameScale.z * Mathf.Clamp(1f - yScale, 0f, 1f)
         );
-    }
-
-    private void StartSquish()
-    {
-        _startedSquish = Time.time;
-        _squishState = 1f;
-        _squishIndex = 0;
     }
 
     private void MoveInRandomDirection()
