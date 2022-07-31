@@ -10,7 +10,8 @@ public class ItemHolderParent : MonoBehaviour
 
     private float _layerWeight;
     private float _layerWeightAnim;
-    
+    private static readonly int Planting = Animator.StringToHash("Planting");
+
     private void OnEnable()
     {
         itemHolder.DidHoldItem += ItemHolderOnDidHoldItem;
@@ -25,6 +26,7 @@ public class ItemHolderParent : MonoBehaviour
     private void ItemHolderOnDidDropItem()
     {
         _layerWeight = 0;
+        animator.SetTrigger(Planting);
     }
 
     private void ItemHolderOnDidHoldItem()
