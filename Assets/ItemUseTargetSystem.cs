@@ -37,6 +37,7 @@ public class ItemUseTargetSystem : MonoBehaviour
     private GameObject _currentTarget;
 
     private GameObject pivot;
+    private bool _enabled;
 
     // Public
 
@@ -177,7 +178,7 @@ public class ItemUseTargetSystem : MonoBehaviour
 
     private Vector3[] HighlightPositions()
     {
-        var forward = pivot.transform.forward * .5f;
+        var forward = pivot.transform.forward * 1.25f;
         var sideForward = forward * .3f;
         var sideVector = pivot.transform.right * .3f;
         var transformPosition = transform.position;

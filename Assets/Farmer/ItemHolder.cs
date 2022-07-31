@@ -34,6 +34,7 @@ public class ItemHolder : MonoBehaviour
     private Pickupable _item;
     private ItemUseTargetSystem _itemTargetSystem;
     private Transform _itemPreviousParent;
+    private bool _hideTarget;
 
     // Public
 
@@ -76,21 +77,16 @@ public class ItemHolder : MonoBehaviour
     {
         if (HoldingItem())
         {
-            if (_item.gridAligned)
-            {
-                // Todo: Replace with item target system
-                // _itemGO.transform.position = NearestApplicablePosition();
-            }
-            else
-            {
-                // TODO: Verify new parent system then remove this code
-                // _itemGO.transform.position = pivot.transform.position;
-                // _itemGO.transform.rotation = Quaternion.Euler(0f, pivot.transform.rotation.eulerAngles.y, 0f);
-            }
-
             if (_itemTargetSystem != null)
             {
-                _itemTargetSystem.TargetNext();
+                if (_hideTarget)
+                {
+                    _itemTargetSystem.NullTarget();
+                }
+                else
+                {
+                    _itemTargetSystem.TargetNext();
+                }
             }
         }
     }
@@ -180,6 +176,9 @@ public class ItemHolder : MonoBehaviour
             if (target)
             {
                 DidUseItem?.Invoke(ItemActivity.Plant);
+                // Todo: Make it better :)
+                GetComponentInParent<FarmerMovement>().StopAndFreezeUntilUnfreeze();
+                _hideTarget = true;
 
                 _doWhenAnimationDone = () =>
                 {
@@ -189,10 +188,13 @@ public class ItemHolder : MonoBehaviour
                     ResetItemParent();
                     TellItemItWasDropped();
                     DidDropItem?.Invoke();
+                    _hideTarget = false;
                     ResetItemVariables();
 
                     var farmTile = target.GetComponent<FarmTile>();
                     eatling.Plant(farmTile);
+
+                    GetComponentInParent<FarmerMovement>().Unfreeze();
                 };
             }
         }

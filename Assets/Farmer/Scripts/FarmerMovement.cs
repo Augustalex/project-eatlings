@@ -30,7 +30,19 @@ public class FarmerMovement : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _freezeMovementUntil = Time.time + .08f;
     }
+    
+    public void StopAndFreezeUntilUnfreeze()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _freezeMovementUntil = Mathf.Infinity;
+    }
 
+    public void Unfreeze()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _freezeMovementUntil = -1f;
+    }
+    
     // Private methods
     void Awake()
     {
