@@ -81,8 +81,6 @@ public class FarmerMovement : MonoBehaviour
 
         var finalMovementVector = normalizedMovement * CharacterSpeed();
 
-        Debug.Log("finalMovementVector: " + finalMovementVector + ", norm: " + normalizedMovement + ", mag: " +
-                  normalizedMovement.magnitude);
         if (normalizedMovement.magnitude > .05f)
         {
             var direction = finalMovementVector.normalized;
@@ -94,14 +92,10 @@ public class FarmerMovement : MonoBehaviour
             if (finalForceToAdd < .01f)
             {
                 var diff = (direction * MaxSpeed()) - _rigidbody.velocity;
-                Debug.Log("DIFF: " + diff);
                 _rigidbody.AddForce(diff, ForceMode.Impulse);
             }
             else
             {
-                Debug.Log("ADD FORCE: " + finalResult + ", dir: " + direction + ", speed: " + speed +
-                          ", forceLefToMax: " +
-                          forceLeftToMax + ", finalForceToAdd: " + finalForceToAdd);
                 _rigidbody.AddForce(finalResult, ForceMode.Impulse);
             }
         }
