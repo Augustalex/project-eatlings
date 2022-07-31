@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pond
-  m_Shader: {fileID: -6465566751694194690, guid: 98f3fa080775c8647bfde565fb295959,
+  m_Shader: {fileID: -6465566751694194690, guid: 4ef8c229093248c4981ad664b5387e3c,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -123,6 +123,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _NormalStrength: 0.25
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
