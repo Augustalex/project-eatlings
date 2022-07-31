@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ public class ItemHolderParent : MonoBehaviour
     private float _layerWeight;
     private float _layerWeightAnim;
     private static readonly int Planting = Animator.StringToHash("Planting");
+    private FarmerMovement _movement;
+
+    private void Awake()
+    {
+        _movement = GetComponent<FarmerMovement>();
+    }
 
     private void OnEnable()
     {

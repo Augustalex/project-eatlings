@@ -88,8 +88,11 @@ public class BlobBouncer : MonoBehaviour
     private bool CanBounce()
     {
         if (_pickupable.IsPickedUp()) return false;
-        if (_eatlingBabyGrowth.IsPlanted()) return false;
-        if (_eatlingBabyGrowth.IsDead()) return false;
+        if (_eatlingBabyGrowth)
+        {
+            if (_eatlingBabyGrowth.IsPlanted()) return false;
+            if (_eatlingBabyGrowth.IsDead()) return false;
+        }
 
         return true;
     }

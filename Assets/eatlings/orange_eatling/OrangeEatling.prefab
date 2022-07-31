@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4836121995453691635}
   - component: {fileID: 6845822186029898570}
   - component: {fileID: 8680265633594708156}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BabyRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4284615670021728603}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EatlingPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1196371523558118752}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EatlingScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 5777070905973989364}
   - component: {fileID: 453378912455889765}
   - component: {fileID: 5060176585003700333}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FullGrownRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8863184122813418882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EatlingScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8863184124193827559}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EatlingPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,15 +512,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1595146382021360810, guid: 36b5c753e5e35d340b0491091399bfb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4765781968800098618, guid: 36b5c753e5e35d340b0491091399bfb8,
         type: 3}
       propertyPath: m_Name
       value: DeadEye
       objectReference: {fileID: 0}
+    - target: {fileID: 4765781968800098618, guid: 36b5c753e5e35d340b0491091399bfb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6014192756066373387, guid: 36b5c753e5e35d340b0491091399bfb8,
         type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376969940268941896, guid: 36b5c753e5e35d340b0491091399bfb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8024935021851209904, guid: 36b5c753e5e35d340b0491091399bfb8,
         type: 3}
@@ -597,6 +612,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7832613235322264486, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 4229ae3d8aed2434d845c63a0841cafc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -612,10 +632,30 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
+    - target: {fileID: -6588284074400377642, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -3042849813675149493, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -2599298091527974903, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4229ae3d8aed2434d845c63a0841cafc,
         type: 3}
       propertyPath: m_Name
       value: eatling_orange_adult
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4229ae3d8aed2434d845c63a0841cafc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4229ae3d8aed2434d845c63a0841cafc,
         type: 3}
@@ -931,6 +971,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7832613235322264486, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -7832613235322264486, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -951,8 +996,23 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
     - target: {fileID: -6588284074400377642, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -6588284074400377642, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3042849813675149493, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -2599298091527974903, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -2352389942451286170, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
@@ -964,6 +1024,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: eatling_orange_baby
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4464669563333124463, guid: c60859d989899ff4faf1be8baeb4f762,
         type: 3}
       propertyPath: m_CastShadows
@@ -974,6 +1039,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fd0d857a474f2fc47b729d0d96bd328b, type: 2}
+    - target: {fileID: 5291869179094004115, guid: c60859d989899ff4faf1be8baeb4f762,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c60859d989899ff4faf1be8baeb4f762, type: 3}
 --- !u!1 &2796184980330510198 stripped
