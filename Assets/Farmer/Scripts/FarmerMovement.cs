@@ -30,7 +30,7 @@ public class FarmerMovement : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _freezeMovementUntil = Time.time + .08f;
     }
-    
+
     public void StopAndFreezeUntilUnfreeze()
     {
         _rigidbody.velocity = Vector3.zero;
@@ -42,17 +42,17 @@ public class FarmerMovement : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _freezeMovementUntil = -1f;
     }
-    
+
     // Private methods
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Time.time < _freezeMovementUntil) return;
-        
+
         UpdateMovement();
         ClampToMaxSpeed();
         InertialDampening();
@@ -88,7 +88,16 @@ public class FarmerMovement : MonoBehaviour
             var forceLeftToMax = Mathf.Max(0f, MaxSpeed() - _rigidbody.velocity.magnitude);
             var finalForceToAdd = Mathf.Min(speed, forceLeftToMax);
             var finalResult = direction * finalForceToAdd;
-            _rigidbody.AddForce(finalResult, ForceMode.Impulse);
+
+            if (finalForceToAdd < .01f)
+            {
+                var diff = (direction * MaxSpeed()) - _rigidbody.velocity;
+                _rigidbody.AddForce(diff, ForceMode.Impulse);
+            }
+            else
+            {
+                _rigidbody.AddForce(finalResult, ForceMode.Impulse);
+            }
         }
     }
 
@@ -149,7 +158,9 @@ public class FarmerMovement : MonoBehaviour
     {
         var isRunning = Running();
         var velocity = _rigidbody.velocity;
-        var movementSpeedValue = velocity.magnitude / (isRunning ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed) * (isRunning ? farmerSettings.runSpeedMultiplier : farmerSettings.walkSpeedMultiplier);
+        var movementSpeedValue = velocity.magnitude /
+                                 (isRunning ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed) *
+                                 (isRunning ? farmerSettings.runSpeedMultiplier : farmerSettings.walkSpeedMultiplier);
         var movementTypeValue = velocity.magnitude / farmerSettings.maxRunSpeed;
         animator.SetFloat(MovementSpeed, movementSpeedValue);
         animator.SetFloat(MovementType, movementTypeValue);
