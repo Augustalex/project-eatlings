@@ -16,6 +16,20 @@ public class ItemHolderParent : MonoBehaviour
     {
         itemHolder.DidHoldItem += ItemHolderOnDidHoldItem;
         itemHolder.DidDropItem += ItemHolderOnDidDropItem;
+        itemHolder.DidUseItem += ItemHolderOnDidUseItem;
+    }
+
+    private void ItemHolderOnDidUseItem(ItemHolder.ItemActivity activity)
+    {
+        if (activity == ItemHolder.ItemActivity.Plant)
+        {
+            _layerWeight = 0;
+            animator.SetTrigger(Planting);
+        }
+        else
+        {
+            Debug.Log("No animation for activity: " + activity);
+        }
     }
 
     private void OnDisable()
@@ -26,7 +40,6 @@ public class ItemHolderParent : MonoBehaviour
     private void ItemHolderOnDidDropItem()
     {
         _layerWeight = 0;
-        animator.SetTrigger(Planting);
     }
 
     private void ItemHolderOnDidHoldItem()

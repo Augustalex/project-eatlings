@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5255004968351515590}
   - component: {fileID: 5255004968351515589}
   - component: {fileID: 5255004968351515588}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5255004968351515642}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5255004969578184389}
   - component: {fileID: 5255004969578184388}
   - component: {fileID: 5255004969578184443}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ActionHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5255004969578184441}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 7528666130632361136}
   - component: {fileID: 7528666130632361137}
   - component: {fileID: 7528666130632361149}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WateringCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5187908500691028173}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WaterCanPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,6 +345,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5187908500691028173}
     m_Modifications:
+    - target: {fileID: 1771758091080912757, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687919946558074422, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374683164481396984, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897340030704721654, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557377803718643266, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 7073303904954652030, guid: e921e11e0a4eced4d86401b13101caae,
         type: 3}
       propertyPath: m_RootOrder
@@ -404,6 +429,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: watercan_01_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593839456290131908, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816534326783514566, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229283582389590503, guid: e921e11e0a4eced4d86401b13101caae,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e921e11e0a4eced4d86401b13101caae, type: 3}
