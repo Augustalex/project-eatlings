@@ -252,6 +252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SnailWolf
       objectReference: {fileID: 0}
+    - target: {fileID: 7475764757244555145, guid: 28cebb972a0d0604ba7dfe9317893b4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28cebb972a0d0604ba7dfe9317893b4f, type: 3}
 --- !u!1 &1682347493 stripped
@@ -307,17 +312,17 @@ PrefabInstance:
     - target: {fileID: 2348265295241880386, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000036140928
+      value: 0.000000027785527
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295241880386, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000016208348
+      value: -0.000000012461147
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295241880413, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7776229
+      value: 2.0827816
       objectReference: {fileID: 0}
     - target: {fileID: 2348265295439009228, guid: 0fe07045f9089844aaee85dbafdb998c,
         type: 3}
@@ -577,12 +582,12 @@ PrefabInstance:
     - target: {fileID: 5977730876015236789, guid: aa1ff40ee39fecd4fa920e2f211fb3f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000036140928
+      value: 0.000000027785527
       objectReference: {fileID: 0}
     - target: {fileID: 5977730876015236789, guid: aa1ff40ee39fecd4fa920e2f211fb3f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000016208348
+      value: -0.000000012461147
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa1ff40ee39fecd4fa920e2f211fb3f7, type: 3}
