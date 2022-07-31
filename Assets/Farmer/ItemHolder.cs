@@ -127,6 +127,11 @@ public class ItemHolder : MonoBehaviour
         if (_itemTargetSystem) _itemTargetSystem.NullTarget();
         _itemTargetSystem = null;
     }
+    
+    
+    public void FinishAnimatingPlanting() {
+        Debug.Log("Now plant me!");
+    }
 
     public void Use()
     {
