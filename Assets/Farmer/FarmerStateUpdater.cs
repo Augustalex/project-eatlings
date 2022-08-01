@@ -15,7 +15,7 @@ public class FarmerStateUpdater : MonoBehaviour
         _farmerState = GetComponent<FarmerState>();
         _itemHolder = GetComponentInChildren<ItemHolder>();
 
-        _itemHolder.DidHoldItem += () => _farmerState.SetState(FarmerState.FarmerStates.HoldingItem);
+        _itemHolder.DidHoldItem += (ItemHolder.ItemActivity activity) => _farmerState.SetState(FarmerState.FarmerStates.HoldingItem);
         _itemHolder.DidDropItem += () =>
         {
             if (_farmerState.currentState == FarmerState.FarmerStates.HoldingItem)

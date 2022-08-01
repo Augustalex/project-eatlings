@@ -10,7 +10,7 @@ public class ItemHolder : MonoBehaviour
     public GameObject pivot;
     public Transform itemParent;
 
-    public event Action DidHoldItem;
+    public event Action<ItemActivity> DidHoldItem;
     public event Action DidDropItem;
     public event Action<ItemActivity> DidUseItem;
 
@@ -62,8 +62,16 @@ public class ItemHolder : MonoBehaviour
         // _itemGO.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         // _itemGO.transform.lossyScale = originalScale;
-
-        DidHoldItem?.Invoke();
+        var waterCan = _itemGO.GetComponent<WateringCan>();
+        
+        if (waterCan) {
+            DidHoldItem?.Invoke(ItemActivity.Watering);  
+        }
+        else
+        {
+            DidHoldItem?.Invoke(ItemActivity.MiscPickup);    
+        }
+        
     }
 
     public bool HoldingItem()

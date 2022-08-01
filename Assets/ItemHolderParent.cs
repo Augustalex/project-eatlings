@@ -9,10 +9,14 @@ public class ItemHolderParent : MonoBehaviour
     [SerializeField] private ItemHolder itemHolder;
 
 
-    private float _layerWeight;
-    private float _layerWeightAnim;
+    private float _layerWeightLeft;
+    private float _layerWeightRight;
+    private float _layerWeightLeftAnim;
+    private float _layerWeightRightAnim;
     private static readonly int Planting = Animator.StringToHash("Planting");
     private FarmerMovement _movement;
+    private static readonly int Watering = Animator.StringToHash("Watering");
+    private static readonly int ToolWatercan = Animator.StringToHash("ToolWatercan");
 
     private void Awake()
     {
@@ -24,18 +28,31 @@ public class ItemHolderParent : MonoBehaviour
         itemHolder.DidHoldItem += ItemHolderOnDidHoldItem;
         itemHolder.DidDropItem += ItemHolderOnDidDropItem;
         itemHolder.DidUseItem += ItemHolderOnDidUseItem;
+        itemHolder.UsedItem += ItemHolderOnUsedItem;
     }
 
     private void ItemHolderOnDidUseItem(ItemHolder.ItemActivity activity)
     {
         if (activity == ItemHolder.ItemActivity.Plant)
         {
-            _layerWeight = 0;
+            _layerWeightLeft = 0;
+            _layerWeightRight = 0;
             animator.SetTrigger(Planting);
         }
+        
         else
         {
             Debug.Log("No animation for activity: " + activity);
+        }
+    }
+    
+    
+    private void ItemHolderOnUsedItem(ItemHolder.ItemActivity activity) {
+        if (activity == ItemHolder.ItemActivity.Watering)
+        {
+            _layerWeightLeft = 1;
+            _layerWeightRight = 1;
+            animator.SetBool(Watering, true);
         }
     }
 
@@ -46,12 +63,20 @@ public class ItemHolderParent : MonoBehaviour
 
     private void ItemHolderOnDidDropItem()
     {
-        _layerWeight = 0;
+        _layerWeightLeft = 0;
+        _layerWeightRight = 0;
+        animator.SetBool(ToolWatercan, false);
     }
 
-    private void ItemHolderOnDidHoldItem()
+    private void ItemHolderOnDidHoldItem(ItemHolder.ItemActivity activity)
     {
-        _layerWeight = 1;
+        _layerWeightLeft = 0;
+        _layerWeightRight = 1;
+        if (activity == ItemHolder.ItemActivity.Watering) {
+            _layerWeightLeft = 1;
+            animator.SetBool(ToolWatercan, true);
+        }
+        
     }
 
     private void Update()
@@ -61,9 +86,11 @@ public class ItemHolderParent : MonoBehaviour
         // {
         //     
         // }
-
-        _layerWeightAnim = math.lerp(_layerWeightAnim, _layerWeight, 0.2f);
-        
-        animator.SetLayerWeight(1, _layerWeightAnim);
+        _layerWeightLeftAnim = math.lerp(_layerWeightLeftAnim, _layerWeightLeft, 0.2f);
+        _layerWeightRightAnim = math.lerp(_layerWeightRightAnim, _layerWeightRight, 0.2f);
+        int _LeftArm = 1;
+        int _RightArm = 2;
+        animator.SetLayerWeight(_LeftArm, _layerWeightLeftAnim);
+        animator.SetLayerWeight(_RightArm, _layerWeightRightAnim);
     }
 }
