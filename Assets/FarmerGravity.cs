@@ -5,6 +5,8 @@ public class FarmerGravity : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _grounded;
     private Vector3 _diff;
+    private bool _jumped;
+    private float _jumpedAt;
 
     void Awake()
     {
@@ -13,62 +15,32 @@ public class FarmerGravity : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("GROUNDED: " + _grounded);
-        if (!_grounded)
-        {
-            _rigidbody.AddForce(Vector3.down * 10000f * Time.deltaTime, ForceMode.Acceleration);
-        }
-
-        return;
-        // var ground = Physics.OverlapBox(transform.position, new Vector3(.1f, .25f, .1f))
-        //     .Where(h => h.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        //     .OrderBy(g => Vector3.Distance(transform.position, g.ContactPoint)).FirstOrDefault();
+        // _grounded = Physics.Raycast(_rigidbody.position, Vector3.down, .5f);
+        // Debug.Log("GROUNDED: " + _grounded);
         //
-        // if (ground != null)
+        //
+        // if (!_grounded)
         // {
-        //     var diff = transform.position.y - ground.transform.position.y;
-        //     if (diff > .1f)
+        //     var timeSinceLastJump = Time.time - _jumpedAt;
+        //     if (!_jumped && timeSinceLastJump > 2f)
         //     {
-        //         _rigidbody.AddForce(Vector3.down * diff * Time.deltaTime * 2000f, ForceMode.Acceleration);
+        //         _jumped = true;
+        //         _jumpedAt = Time.time;
+        //         _rigidbody.AddForce(Vector3.up * 1000f, ForceMode.Impulse);
+        //         Debug.Log("JUMP!");
         //     }
         //
-        //     Debug.Log("DIFF: " + diff);
+        //     _rigidbody.AddForce(Vector3.down * 10f * Time.deltaTime, ForceMode.Acceleration);
         // }
         // else
         // {
-        //     _rigidbody.AddForce(Vector3.down * 2000f * Time.deltaTime, ForceMode.Acceleration);
+        //     _jumped = false;
         // }
-        //
-        // Debug.Log("GROUND: " + ground);
-        // var ray = new Ray(transform.position + Vector3.up * 2f, Vector3.down);
-        // Debug.DrawRay(transform.position + Vector3.up * .5f, Vector3.down, Color.red);
-        // Debug.DrawRay(transform.position + Vector3.up * .5f + Vector3.down * .7f + Vector3.left * .05f, Vector3.down,
-        //     Color.blue);
-        // if (Physics.Raycast(ray, out var hit, 2.5f, LayerMask.NameToLayer("Ground")))
-        // {
-        //     Debug.Log("GROUND! " + hit.collider);
-        // }
-        // else
-        // {
-        //     Debug.Log("DOWN! " + hit.collider);
-        //     // _rigidbody.AddForce(Vector3.down * 10000f * Time.deltaTime, ForceMode.Acceleration);
-        // }
-    }
 
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            _grounded = false;
-            _diff = transform.position - other.contacts[0].point;
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            _grounded = true;
-        }
+        // var supergrounded = Physics.Raycast(_rigidbody.position, -_rigidbody.transform.up, .3f);
+        // if (!supergrounded)
+        // {
+        //     _rigidbody.AddForce(Vector3.down * 100f * Time.deltaTime, ForceMode.Acceleration);
+        // }
     }
 }

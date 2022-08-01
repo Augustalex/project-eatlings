@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Farmer.Scripts;
 using UnityEngine;
 
@@ -27,19 +24,19 @@ public class FarmerMovement : MonoBehaviour
 
     public void StopAndFreeze()
     {
-        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.velocity = EmptyWithGravity();
         _freezeMovementUntil = Time.time + .08f;
     }
 
     public void StopAndFreezeUntilUnfreeze()
     {
-        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.velocity = EmptyWithGravity();
         _freezeMovementUntil = Mathf.Infinity;
     }
 
     public void Unfreeze()
     {
-        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.velocity = EmptyWithGravity();
         _freezeMovementUntil = -1f;
     }
 
@@ -58,11 +55,21 @@ public class FarmerMovement : MonoBehaviour
         InertialDampening();
     }
 
+    private Vector3 EmptyWithGravity()
+    {
+        var velocity = _rigidbody.velocity;
+        return new Vector3(
+            0f,
+            velocity.y,
+            0f
+        );
+    }
+
     private void InertialDampening()
     {
         if (_movement.magnitude < .1f)
         {
-            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.velocity = EmptyWithGravity();
         }
     }
 
@@ -71,7 +78,12 @@ public class FarmerMovement : MonoBehaviour
         var velocity = _rigidbody.velocity;
         if (velocity.magnitude > MaxSpeed())
         {
-            _rigidbody.velocity = velocity.normalized * MaxSpeed();
+            var targetVelocity = velocity.normalized * MaxSpeed();
+            _rigidbody.velocity = new Vector3(
+                targetVelocity.x,
+                velocity.y,
+                targetVelocity.z
+            );
         }
     }
 
@@ -92,13 +104,22 @@ public class FarmerMovement : MonoBehaviour
             if (finalForceToAdd < .01f)
             {
                 var diff = (direction * MaxSpeed()) - _rigidbody.velocity;
-                _rigidbody.AddForce(diff, ForceMode.Impulse);
+                _rigidbody.AddForce(StripGravity(diff), ForceMode.Impulse);
             }
             else
             {
-                _rigidbody.AddForce(finalResult, ForceMode.Impulse);
+                _rigidbody.AddForce(StripGravity(finalResult), ForceMode.Impulse);
             }
         }
+    }
+
+    private Vector3 StripGravity(Vector3 vector)
+    {
+        return new Vector3(
+            vector.x,
+            0f,
+            vector.z
+        );
     }
 
     private float MaxSpeed()
@@ -109,7 +130,6 @@ public class FarmerMovement : MonoBehaviour
     private bool Running()
     {
         return _forceRun;
-        //return _movement.magnitude > .8f || _forceRun;
     }
 
     public void SetForceRun(bool on)
@@ -123,25 +143,6 @@ public class FarmerMovement : MonoBehaviour
             _movement.x,
             0f,
             _movement.y);
-
-        var xyVector = _movement;
-        // var x = RoundMovementValue(xyVector.x);
-        // var roundedY = RoundMovementValue(xyVector.y);
-        // var z = (roundedY > .1f || roundedY < -.1f) ? roundedY < 0 ? -1f : 1f : 0f;
-        // return new Vector3(
-        //     x,
-        //     0,
-        //     x == 0f ? z : 0f
-        // );
-        // return new Vector3(RoundMovementValue(xyVector.x), 0f, roundedY);
-    }
-
-    private float RoundMovementValue(float x)
-    {
-        return x;
-
-        // var scale = 8f;
-        // return Mathf.Round(x * scale) / scale;
     }
 
     private float CharacterSpeed()
@@ -157,7 +158,8 @@ public class FarmerMovement : MonoBehaviour
     private void LateUpdate()
     {
         var isRunning = Running();
-        var velocity = _rigidbody.velocity;
+        var rawVelocity = _rigidbody.velocity;
+        var velocity = new Vector3(rawVelocity.x, 0f, rawVelocity.z);
         var movementSpeedValue = velocity.magnitude /
                                  (isRunning ? farmerSettings.maxRunSpeed : farmerSettings.maxWalkSpeed) *
                                  (isRunning ? farmerSettings.runSpeedMultiplier : farmerSettings.walkSpeedMultiplier);
