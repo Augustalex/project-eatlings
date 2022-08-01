@@ -12,7 +12,6 @@ public class ItemHolder : MonoBehaviour
 
     public event Action<ItemActivity> DidHoldItem;
     public event Action DidDropItem;
-    public event Action<ItemActivity> DidUseItem;
 
     public event Action<ItemActivity> UsedItem;
 
@@ -63,15 +62,15 @@ public class ItemHolder : MonoBehaviour
 
         // _itemGO.transform.lossyScale = originalScale;
         var waterCan = _itemGO.GetComponent<WateringCan>();
-        
-        if (waterCan) {
-            DidHoldItem?.Invoke(ItemActivity.Watering);  
+
+        if (waterCan)
+        {
+            DidHoldItem?.Invoke(ItemActivity.Watering);
         }
         else
         {
-            DidHoldItem?.Invoke(ItemActivity.MiscPickup);    
+            DidHoldItem?.Invoke(ItemActivity.MiscPickup);
         }
-        
     }
 
     public bool HoldingItem()
@@ -158,22 +157,27 @@ public class ItemHolder : MonoBehaviour
             var target = _itemTargetSystem.GetCurrentTarget();
             if (target)
             {
-                waterCan.Water(target);
+                _hideTarget = true;
                 UsedItem?.Invoke(ItemActivity.Watering);
 
                 var farmerMovement = GetComponentInParent<FarmerMovement>();
-                farmerMovement.StopAndFreeze();
+                farmerMovement.StopAndFreezeUntilUnfreeze();
 
                 var current = farmerMovement.transform.position;
-                var currentFlat = new Vector2(current.x, current.z);
                 var next = target.transform.position;
-                var nextFlat = new Vector2(next.x, next.z);
-
-                var direction = (nextFlat - currentFlat).normalized;
-                var angles = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-
+                var direction = (next - current).normalized;
+                var angles = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 var newRotation = Quaternion.AngleAxis(angles, Vector3.up);
-                farmerMovement.GetComponent<FarmerRotation>().ForceRotation(newRotation);
+                var farmerRotation = GetComponentInParent<FarmerRotation>();
+                farmerRotation.ForceRotationTarget(newRotation);
+
+                _doWhenAnimationDone = () =>
+                {
+                    _hideTarget = false;
+                    waterCan.Water(target);
+                    farmerMovement.Unfreeze();
+                    farmerRotation.NullForceTarget();
+                };
             }
         }
 
@@ -183,7 +187,7 @@ public class ItemHolder : MonoBehaviour
             var target = _itemTargetSystem.GetCurrentTarget();
             if (target)
             {
-                DidUseItem?.Invoke(ItemActivity.Plant);
+                UsedItem?.Invoke(ItemActivity.Plant);
                 // Todo: Make it better :)
                 GetComponentInParent<FarmerMovement>().StopAndFreezeUntilUnfreeze();
                 _hideTarget = true;

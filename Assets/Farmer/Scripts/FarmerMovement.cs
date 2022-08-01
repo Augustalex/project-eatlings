@@ -7,7 +7,6 @@ public class FarmerMovement : MonoBehaviour
     public FarmerSettings farmerSettings;
     [SerializeField] private Animator animator;
 
-
     // Private
     private Vector2 _movement;
     private Rigidbody _rigidbody;

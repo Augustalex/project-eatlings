@@ -14,24 +14,17 @@ public class ItemHolderParent : MonoBehaviour
     private float _layerWeightLeftAnim;
     private float _layerWeightRightAnim;
     private static readonly int Planting = Animator.StringToHash("Planting");
-    private FarmerMovement _movement;
     private static readonly int Watering = Animator.StringToHash("Watering");
     private static readonly int ToolWatercan = Animator.StringToHash("ToolWatercan");
-
-    private void Awake()
-    {
-        _movement = GetComponent<FarmerMovement>();
-    }
 
     private void OnEnable()
     {
         itemHolder.DidHoldItem += ItemHolderOnDidHoldItem;
         itemHolder.DidDropItem += ItemHolderOnDidDropItem;
-        itemHolder.DidUseItem += ItemHolderOnDidUseItem;
         itemHolder.UsedItem += ItemHolderOnUsedItem;
     }
 
-    private void ItemHolderOnDidUseItem(ItemHolder.ItemActivity activity)
+    private void ItemHolderOnUsedItem(ItemHolder.ItemActivity activity)
     {
         if (activity == ItemHolder.ItemActivity.Plant)
         {
@@ -39,26 +32,23 @@ public class ItemHolderParent : MonoBehaviour
             _layerWeightRight = 0;
             animator.SetTrigger(Planting);
         }
-        
-        else
-        {
-            Debug.Log("No animation for activity: " + activity);
-        }
-    }
-    
-    
-    private void ItemHolderOnUsedItem(ItemHolder.ItemActivity activity) {
-        if (activity == ItemHolder.ItemActivity.Watering)
+        else if (activity == ItemHolder.ItemActivity.Watering)
         {
             _layerWeightLeft = 1;
             _layerWeightRight = 1;
             animator.SetBool(Watering, true);
+        }
+        else
+        {
+            Debug.Log("No animation for activity: " + activity);
         }
     }
 
     private void OnDisable()
     {
         itemHolder.DidHoldItem -= ItemHolderOnDidHoldItem;
+        itemHolder.DidDropItem -= ItemHolderOnDidDropItem;
+        itemHolder.UsedItem -= ItemHolderOnUsedItem;
     }
 
     private void ItemHolderOnDidDropItem()
@@ -72,11 +62,11 @@ public class ItemHolderParent : MonoBehaviour
     {
         _layerWeightLeft = 0;
         _layerWeightRight = 1;
-        if (activity == ItemHolder.ItemActivity.Watering) {
+        if (activity == ItemHolder.ItemActivity.Watering)
+        {
             _layerWeightLeft = 1;
             animator.SetBool(ToolWatercan, true);
         }
-        
     }
 
     private void Update()
