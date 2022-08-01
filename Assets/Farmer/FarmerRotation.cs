@@ -22,7 +22,7 @@ public class FarmerRotation : MonoBehaviour
     {
         if (_forcedTarget)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, _forceTarget, 720f * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _forceTarget, 360f * Time.deltaTime);
         }
         else
         {
