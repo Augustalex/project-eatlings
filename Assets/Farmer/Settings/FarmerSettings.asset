@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2c1002dccc491c801ed0e1e37106a9, type: 3}
   m_Name: FarmerSettings
   m_EditorClassIdentifier: 
-  baseMovementSpeed: 20
-  maxWalkSpeed: 2
-  maxRunSpeed: 7
-  walkSpeedMultiplier: 2
-  runSpeedMultiplier: 1
+  baseMovementSpeed: 10
+  maxWalkSpeed: 1
+  maxRunSpeed: 3
+  walkSpeedMultiplier: 0.8
+  runSpeedMultiplier: 0.5

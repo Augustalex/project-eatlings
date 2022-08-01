@@ -22,8 +22,13 @@ public class FarmerRotation : MonoBehaviour
         var currentDirection = rigidbodyVelocity.normalized;
         var angles = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
 
-        _farmerPivotAccess.pivot.transform.rotation = Quaternion.Lerp(_farmerPivotAccess.pivot.transform.rotation,
-            Quaternion.AngleAxis(angles, Vector3.up), .1f);
+        var currentRotation = _farmerPivotAccess.pivot.transform.rotation;
+        var newRotation = Quaternion.AngleAxis(angles, Vector3.up);
+        // var diff = (currentRotation.eulerAngles - newRotation.eulerAngles).magnitude;
+        // _farmerPivotAccess.pivot.transform.rotation = Quaternion.Slerp(currentRotation,
+        //     newRotation, .05f / (diff *.01f));
+        //
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, 720f * Time.deltaTime);
     }
 
     public void ForceRotation(Quaternion rotation)

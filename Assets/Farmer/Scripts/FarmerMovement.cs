@@ -52,7 +52,7 @@ public class FarmerMovement : MonoBehaviour
 
         UpdateMovement();
         ClampToMaxSpeed();
-        InertialDampening();
+        // InertialDampening();
     }
 
     private Vector3 EmptyWithGravity()
@@ -95,21 +95,7 @@ public class FarmerMovement : MonoBehaviour
 
         if (normalizedMovement.magnitude > .05f)
         {
-            var direction = finalMovementVector.normalized;
-            var speed = finalMovementVector.magnitude;
-            var forceLeftToMax = Mathf.Max(0f, MaxSpeed() - _rigidbody.velocity.magnitude);
-            var finalForceToAdd = Mathf.Min(speed, forceLeftToMax);
-            var finalResult = direction * finalForceToAdd;
-
-            if (finalForceToAdd < .01f)
-            {
-                var diff = (direction * MaxSpeed()) - _rigidbody.velocity;
-                _rigidbody.AddForce(StripGravity(diff), ForceMode.Impulse);
-            }
-            else
-            {
-                _rigidbody.AddForce(StripGravity(finalResult), ForceMode.Impulse);
-            }
+            _rigidbody.AddForce(StripGravity(finalMovementVector).normalized * MaxSpeed(), ForceMode.VelocityChange);
         }
     }
 
