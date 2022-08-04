@@ -14,6 +14,7 @@ public class FarmerMovement : MonoBehaviour
     private static readonly int MovementType = Animator.StringToHash("MovementType");
     private bool _forceRun;
     private float _freezeMovementUntil;
+    private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
     // Public methods
     public void SetMovementVector(Vector2 movement)
@@ -120,6 +121,7 @@ public class FarmerMovement : MonoBehaviour
     public void SetForceRun(bool on)
     {
         _forceRun = on;
+        animator.SetBool(IsRunning, on);
     }
 
     private Vector3 MovementVector()
