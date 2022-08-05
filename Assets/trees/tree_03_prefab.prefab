@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 1074681951528724924}
   - component: {fileID: 4126935665104102937}
   - component: {fileID: 2207086347233743571}
+  - component: {fileID: 221850195780630313}
+  - component: {fileID: 7446907715383931329}
+  - component: {fileID: 1654053505313953307}
+  - component: {fileID: 1592431698315038562}
   m_Layer: 0
   m_Name: tree_03_prefab
   m_TagString: Untagged
@@ -85,3 +89,58 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &221850195780630313
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405844202527978246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.15
+  m_Height: 4.03
+  m_Direction: 1
+  m_Center: {x: 0, y: 4.41, z: -2.76}
+--- !u!136 &7446907715383931329
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405844202527978246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.48
+  m_Height: 3.67
+  m_Direction: 1
+  m_Center: {x: -0.56, y: 3.63, z: 2.31}
+--- !u!135 &1654053505313953307
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405844202527978246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.98
+  m_Center: {x: -0.06, y: 6.54, z: -0.27}
+--- !u!136 &1592431698315038562
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405844202527978246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.74
+  m_Height: 3.56
+  m_Direction: 1
+  m_Center: {x: -0.24, y: 1.12, z: -0.02}

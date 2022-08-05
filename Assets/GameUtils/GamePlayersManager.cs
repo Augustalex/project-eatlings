@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class GamePlayersManager : MonoBehaviour
 {
     [SerializeField] private CinemachineTargetGroup _cinemachineTargetGroup;
-    
+    [SerializeField] private bool debugDoNotAddPlayers;
     private static GamePlayersManager _instance;
     private int _playerCount;
 
@@ -24,8 +24,11 @@ public class GamePlayersManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput player)
     {
         _playerCount += 1;
-        Debug.Log(player);
-        _cinemachineTargetGroup.AddMember(player.transform.GetChild(0).transform, 1f, 0f);
+        if (!debugDoNotAddPlayers)
+        {
+            _cinemachineTargetGroup.AddMember(player.transform.GetChild(0).transform, 1f, 0f);    
+        }
+        
     }
 
     public int PlayerCount()

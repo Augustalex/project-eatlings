@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 3253436157918389484}
   - component: {fileID: 1912162217955699529}
   - component: {fileID: 4426381123592707971}
+  - component: {fileID: 6436896073227229143}
+  - component: {fileID: 6056513044950421325}
+  - component: {fileID: 1380563338145766681}
+  - component: {fileID: 7589670485346725746}
   m_Layer: 0
   m_Name: tree_04_prefab
   m_TagString: Untagged
@@ -85,3 +89,56 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6436896073227229143
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768964308276837974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.63
+  m_Height: 3.92
+  m_Direction: 1
+  m_Center: {x: -0.05848384, y: 1.13, z: -0.18346965}
+--- !u!135 &6056513044950421325
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768964308276837974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.15
+  m_Center: {x: 0.47, y: 6.56, z: -2.13}
+--- !u!135 &1380563338145766681
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768964308276837974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.12
+  m_Center: {x: 0.72, y: 4.7, z: 1.43}
+--- !u!135 &7589670485346725746
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768964308276837974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.02
+  m_Center: {x: -0.89, y: 6.03, z: 0.12}
