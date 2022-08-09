@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17562789, g: 0.2197633, b: 0.30208963, a: 1}
+  m_IndirectSpecularColor: {r: 0.17704906, g: 0.22163472, b: 0.303904, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,6 +124,75 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &345839768
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.73224574
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.68104047
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -274.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307973, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449418362688307974, guid: e09a883fbc349ca499c34408434ab97b,
+        type: 3}
+      propertyPath: m_Name
+      value: Farmer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e09a883fbc349ca499c34408434ab97b, type: 3}
 --- !u!1 &1217939166 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2348265295439009228, guid: 0fe07045f9089844aaee85dbafdb998c,

@@ -17,6 +17,12 @@
         },
         {
             "m_Id": "1ceae0ed00d3474881b09df6993fb296"
+        },
+        {
+            "m_Id": "25954b3c26804a52b726656a13cdd26e"
+        },
+        {
+            "m_Id": "0fb1810a32c049a997c25dead02aa7eb"
         }
     ],
     "m_Keywords": [],
@@ -1402,6 +1408,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "0fb1810a32c049a997c25dead02aa7eb",
+    "m_Guid": {
+        "m_GuidSerialized": "f8b673d9-ea2e-4b1b-bb54-31628d1cabbf"
+    },
+    "m_Name": "FresnelPower",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "FresnelPower",
+    "m_DefaultReferenceName": "_FresnelPower",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 12.600000381469727,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "103d2fb0af774ff29f264ee9d3bb0ffb",
@@ -1919,6 +1952,33 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "25954b3c26804a52b726656a13cdd26e",
+    "m_Guid": {
+        "m_GuidSerialized": "70f4b914-8aef-4f8f-92b4-ba9c2856f4d8"
+    },
+    "m_Name": "Fresnel",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Fresnel",
+    "m_DefaultReferenceName": "_Fresnel",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 7.409999847412109,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
 }
 
 {
@@ -6654,6 +6714,12 @@
         },
         {
             "m_Id": "1ceae0ed00d3474881b09df6993fb296"
+        },
+        {
+            "m_Id": "25954b3c26804a52b726656a13cdd26e"
+        },
+        {
+            "m_Id": "0fb1810a32c049a997c25dead02aa7eb"
         }
     ]
 }
@@ -7446,10 +7512,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1629.700927734375,
-            "y": 1852.53076171875,
-            "width": 208.0,
-            "height": 326.0
+            "x": -1565.3333740234375,
+            "y": 1858.6666259765625,
+            "width": 209.3333740234375,
+            "height": 327.9998779296875
         }
     },
     "m_Slots": [

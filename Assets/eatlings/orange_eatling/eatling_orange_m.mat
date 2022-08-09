@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: eatling_orange_m
-  m_Shader: {fileID: -6465566751694194690, guid: 9571c122dbe6c864cb56c253e3de9094,
+  m_Shader: {fileID: -6465566751694194690, guid: 518695914b767a344a0ea418e459cedc,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -74,6 +74,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e21d45948a104ebca65da17ba6cf77c1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: eae685938d27fdb4b84bfa5b44714a81, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -103,6 +107,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Fresnel: 7.41
+    - _FresnelPower: 12.6
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

@@ -783,6 +783,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8577601917716952444, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc94dd000069dbb4c94056addc6cd995, type: 2}
     - target: {fileID: -7980316727677748081, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -798,6 +803,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5347376785104885218, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc94dd000069dbb4c94056addc6cd995, type: 2}
     - target: {fileID: -4301843404558946002, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -823,6 +833,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2922291686094244052, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7346b58dc3b92ed438ea1f10dbb11d6e, type: 2}
     - target: {fileID: -2597981990761942593, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
@@ -853,6 +868,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2797689126450290789, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7346b58dc3b92ed438ea1f10dbb11d6e, type: 2}
     - target: {fileID: 3204628715745115755, guid: f61a70d45ab438e43a3bdbb4c467b1ec,
         type: 3}
       propertyPath: m_Layer
