@@ -98,8 +98,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 475d95fcb7dd4a547b722e5ca01de19c,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: c1f4426979066134eaa8e3a8c50593ca,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -519,27 +521,27 @@ PrefabInstance:
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.376725
+      value: -13.146271
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.83207554
+      value: 0.83925265
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.55133224
+      value: 0.5406339
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.050591327
+      value: 0.048802275
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915344204977, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.033521753
+      value: -0.03143769
       objectReference: {fileID: 0}
     - target: {fileID: 6831452915520100685, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
@@ -601,7 +603,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForrestScene
       objectReference: {fileID: 0}
-    - target: {fileID: 6831452915640422509, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
+    - target: {fileID: 6831452915520100686, guid: 6b8b43d6701ef5c4aac7a90f057bdbe5,
         type: 3}
       propertyPath: m_IsActive
       value: 1
